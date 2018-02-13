@@ -1,0 +1,24 @@
+{
+  "name": "digital-brain",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server/app.js",
+    "webpack": "webpack",
+    "start-dev": "node-dev server/app.js",
+    "webpack-dev": "webpack -w",
+    "test": "mocha --recursive ./server/tests"
+  },
+  "engines": {
+    "node": "^8.9.4"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "assert": "^1.4.1",
+    "mocha": "^5.0.0",
+    "webpack": "^3.10.0"
+  }
+}
