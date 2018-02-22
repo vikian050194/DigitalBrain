@@ -1,18 +1,26 @@
 var assert = require('assert'),
-    IntegerGenerator = require('../generators/integer-generator');
+    { IntegerGenerator, TestIntegerGenerator } = require('../generators/integer-generator');
 
 describe('Generators', function () {
-    it('Initialization without arguments', function () {
-        var g = new IntegerGenerator();
+    it('Test int gen: init without arguments and use', function () {
+        var g = new TestIntegerGenerator();
 
-        assert.equal(actual, undefined);
+        assert.equal(g.next(), undefined);
     });
-    it('Initialization with 3 arguments', function () {
-        var g = new IntegerGenerator([3, 14, 15]);
-        
-        assert.equal(g(), 3);
-        assert.equal(g(), 14);
-        assert.equal(g(), 15);
-        assert.equal(g(), undefined);
+    it('Test int gen: init with 3 arguments and use', function () {
+        var g = new TestIntegerGenerator([3, 14, 15]);
+
+        assert.equal(g.next(), 3);
+        assert.equal(g.next(), 14);
+        assert.equal(g.next(), 15);
+        assert.equal(g.next(), undefined);
+    });
+    it('Real int gen: init and use 3 times', function () {
+        var g = new IntegerGenerator();
+        for (var i = 0; i < 10; i++) {
+            var value = g.next(1, 9);
+            var isNumberBelongToRange = value > 0 && value < 10;
+            assert.equal(isNumberBelongToRange, true);
+        }
     });
 });
