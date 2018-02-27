@@ -1,4 +1,4 @@
-function ArithmeticTask(integerGenerator) {
+function ArithmeticTaskGenerator(integerGenerator) {
     return {
         next: function (operation, min, max) {
             switch (operation) {
@@ -12,4 +12,4 @@ function ArithmeticTask(integerGenerator) {
     }
 }
 
-module.exports = ArithmeticTask;
+module.exports = ArithmeticTaskGenerator;

@@ -1,9 +1,17 @@
 var assert = require('assert'),
-    TaskManager = require('../tasks/task-manager'),
-    Settings = require('../tasks/settings'),
-    { TestIntegerGenerator } = require('../generators/integer-generator');
+    TaskGeneratorManager = require('../tasks-generators/task-generator-manager'),
+    Settings = require('../tasks-generators/settings');
+    
+describe('Task generator manager: ', function () {
+    it('Get tasks generators types', function () {
+        var tasksGenerators = { g1: 'test1', g2: 'test2' },
+            taskGeneratorManager = new TaskGeneratorManager(tasksGenerators),
+            types = taskGeneratorManager.getTasksGeneratorsTypes();
 
-describe('Task manager: ', function () {
+        assert.equal(types.length, 2);
+        assert.equal(types[0], 'g1');
+        assert.equal(types[1], 'g2');
+    });
     it('Get 3 arithmetic tasks, operation is addition', function () {
         var taskType = 'arithmetic',
             operation = '+',
