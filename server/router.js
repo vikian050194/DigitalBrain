@@ -1,24 +1,30 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    fs = require('fs'),
+    path = require('path'),
+    Foo = require('./data-generators/data-generator-provider'),
+    Bar = require('./tasks-generators/task-generator-provider'),
+    Baz = require('./tasks-generators/task-generator-manager'),
+    Settings = require('./tasks-generators/settings');
 
-function logRequest(requestType){
-    var message = `${requestType} request: ${new Date().toLocaleTimeString()}`;
-    console.log(message);
-    return message;
-};
+var foo = Foo(),
+    bar = Bar(foo.getAllGenerators()),
+    baz = Baz(bar.getAllGenerators());
 
-router.route('/')
+if (process.env.NODE_ENV === 'production') {
+    router.route('/')
+        .get(function (req, res) {
+            res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+        });
+}
+
+router.route('/task')
     .get(function (req, res) {
-        res.send(logRequest('GET'));
+        res.send(baz.getTasksGeneratorsTypes());
     })
-    .post(function(req,res){
-        res.send(logRequest('POST'));
-    })
-    .put(function(req,res){
-        res.send(logRequest('PUT'));
-    })
-    .delete(function(req,res){
-        res.send(logRequest('DELETE'));
+    .post(function (req, res) {
+        var settings = Settings('arithmetic', '+', 1, 1, 9);
+        res.send(baz.getTasks(settings));
     });
 
 module.exports = router;

@@ -1,6 +1,6 @@
 var assert = require('assert'),
     ArithmeticTaskGenerator = require('../tasks-generators/arithmetic-task-generator'),
-    { TestIntegerGenerator } = require('../data-generators/integer-generator');
+    TestIntegerGenerator = require('../data-generators/test-integer-generator');
 
 describe('Arithmetic tasks', function () {
     it('Generate 2 tasks', function () {

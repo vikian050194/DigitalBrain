@@ -6,13 +6,17 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}\\server\\app.js",
-            "cwd": "${workspaceRoot}"
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "NODE_ENV": "testing"
+            }
         },
         {
             "type": "node",
             "request": "attach",
             "name": "Attach to Process",
-            "port": 5858
+            "port": 5858,
+            "processId": "${command:PickProcess}"
         },
         {
             "name": "Debug tests",

@@ -1,11 +1,13 @@
 var assert = require('assert'),
+    TestIntegerGenerator = require('../data-generators/test-integer-generator'),
     TaskGeneratorManager = require('../tasks-generators/task-generator-manager'),
+    TaskGeneratorProvider = require('../tasks-generators/task-generator-provider'),
     Settings = require('../tasks-generators/settings');
-    
+
 describe('Task generator manager: ', function () {
     it('Get tasks generators types', function () {
         var tasksGenerators = { g1: 'test1', g2: 'test2' },
-            taskGeneratorManager = new TaskGeneratorManager(tasksGenerators),
+            taskGeneratorManager = TaskGeneratorManager(tasksGenerators),
             types = taskGeneratorManager.getTasksGeneratorsTypes();
 
         assert.equal(types.length, 2);
@@ -20,9 +22,10 @@ describe('Task generator manager: ', function () {
             count = 3,
             settings = new Settings(taskType, operation, count, min, max),
             randomValues = [1, 2, 2, 4, 5, 7],
-            g = new TestIntegerGenerator(randomValues),
-            taskManager = new TaskManager({ integerGenerator: g }),
-            result = taskManager.getTasks(settings);
+            testIntegerGenerator = TestIntegerGenerator(randomValues),
+            taskGeneratorProvider = TaskGeneratorProvider({ integerGenerator: testIntegerGenerator }),
+            taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators()),
+            result = taskGeneratorManager.getTasks(settings);
 
         assert.equal(result.length, count);
         assert.deepEqual(result[0], { a: randomValues[0], b: randomValues[1], result: 3, operation });

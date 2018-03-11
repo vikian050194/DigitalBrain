@@ -9,5 +9,5 @@ var router = require('./router');
 app.use('/', router);
 
 app.listen(port, function () {
-    console.log('listening on port ' + port);
+    console.log('Listening on port ' + port);
 });
