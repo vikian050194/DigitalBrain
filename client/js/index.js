@@ -4,6 +4,21 @@ $(document).ready(function () {
 
     var task = undefined;
 
+    $.ajax({
+        type: "GET",
+        url: '/task',
+        success: function (types) {
+            debugger;
+            var content = '';
+            types.forEach(function (element) {
+                content += `<option value="${element}">${element}</option>`
+            });
+
+            $('#taskType').html(content);
+            $('#taskType').val(types[0]);
+        }
+    });
+
     function start() {
         $('#input').val('');
 
