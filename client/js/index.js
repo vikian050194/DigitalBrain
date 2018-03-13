@@ -1,3 +1,7 @@
+var index = require('../css/index.css'),
+    b = require('../css/bootstrap.css'),
+    t = require('../css/bootstrap-theme.css');
+
 $(document).ready(function () {
     $.ajaxSetup({ cache: false });
     $('#input').focus();
@@ -8,7 +12,6 @@ $(document).ready(function () {
         type: "GET",
         url: '/task',
         success: function (types) {
-            debugger;
             var content = '';
             types.forEach(function (element) {
                 content += `<option value="${element}">${element}</option>`

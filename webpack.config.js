@@ -1,13 +1,43 @@
-var webpack = require('webpack')
+var webpack = require('webpack'),
+    ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: './client/js/index.js',
-    output: {
-        filename: 'bundle.js',
-        path: __dirname + '/client/build'
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: "css-loader"
+                })
+            },
+            { 
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, 
+                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+            },
+            { 
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+            },
+            { 
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'file-loader'
+            },
+            {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+            }
+        ]
     },
-    plugins: [
-        new webpack.ProvidePlugin({
-            '$': 'jquery'
-        })]
+output: {
+    filename: 'bundle.js',
+        path: __dirname + '/client/build'
+},
+plugins: [
+    new webpack.ProvidePlugin({
+        '$': 'jquery'
+    }),
+    new ExtractTextPlugin("bundle.css")
+]
 };
