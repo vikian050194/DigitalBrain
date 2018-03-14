@@ -1,6 +1,6 @@
 var index = require('../css/index.css'),
-    b = require('../css/bootstrap.css'),
-    t = require('../css/bootstrap-theme.css');
+    b = require('bootstrap');
+    // t = require('../css/bootstrap-theme.css');
 
 $(document).ready(function () {
     $.ajaxSetup({ cache: false });

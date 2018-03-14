@@ -2,7 +2,7 @@ var webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: './client/js/index.js',
+    entry: ['./client/js/index.js', 'bootstrap-loader'],
     module: {
         rules: [
             {
@@ -12,15 +12,15 @@ module.exports = {
                     use: "css-loader"
                 })
             },
-            { 
-                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, 
+            {
+                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url-loader?limit=10000&mimetype=application/font-woff'
             },
-            { 
+            {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
             },
-            { 
+            {
                 test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader'
             },
@@ -30,14 +30,15 @@ module.exports = {
             }
         ]
     },
-output: {
-    filename: 'bundle.js',
+    output: {
+        filename: 'bundle.js',
         path: __dirname + '/client/build'
-},
-plugins: [
-    new webpack.ProvidePlugin({
-        '$': 'jquery'
-    }),
-    new ExtractTextPlugin("bundle.css")
-]
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            '$': 'jquery',
+            'jQuery': 'jquery'
+        }),
+        new ExtractTextPlugin("bundle.css")
+    ]
 };
