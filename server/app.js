@@ -4,6 +4,7 @@ var express = require('express'),
     app = express();
 
 app.use(express.static('client'));
+// app.use('/',express.static('client/build'));
 
 var router = require('./router');
 app.use('/', router);

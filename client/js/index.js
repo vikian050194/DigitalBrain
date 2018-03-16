@@ -1,10 +1,6 @@
-var index = require('../css/index.css'),
-    b = require('bootstrap');
-    // t = require('../css/bootstrap-theme.css');
-
 $(document).ready(function () {
     $.ajaxSetup({ cache: false });
-    $('#input').focus();
+    $('#answer').focus();
 
     var task = undefined;
 
@@ -23,7 +19,7 @@ $(document).ready(function () {
     });
 
     function start() {
-        $('#input').val('');
+        $('#answer').val('');
 
         $.ajax({
             type: "POST",
@@ -31,21 +27,21 @@ $(document).ready(function () {
             success: function (tasks) {
                 task = tasks[0];
                 $('#task').html(`${task.a} ${task.operation} ${task.b} = ?`);
-                $('#input').focus();
+                $('#answer').focus();
             }
         });
     }
 
     function changeScore(isCorrect) {
-        var plus = '<span style="color:green;">+</span>';
-        var minus = '<span style="color:red;">-</span>';
-        var newContent = $('#result').html() + (isCorrect ? plus : minus);
-        $('#result').html(newContent);
+        var plus = '<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>';
+        var minus = '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>';
+        var newContent = $('#score').html() + (isCorrect ? plus : minus);
+        $('#score').html(newContent);
     }
 
-    $("#input").on("keydown", function (e) {
+    $("#answer").on("keydown", function (e) {
         if (e.which == 13) {
-            var isCorrect = $("#input").val() == task.result;
+            var isCorrect = $("#answer").val() == task.result;
             changeScore(isCorrect);
             start();
         }

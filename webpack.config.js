@@ -2,7 +2,7 @@ var webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: ['./client/js/index.js', 'bootstrap-loader'],
+    entry: ['./client/js/index.js', './client/js/index.css.js','bootstrap-loader'],
     module: {
         rules: [
             {
@@ -13,20 +13,13 @@ module.exports = {
                 })
             },
             {
-                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+                test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+                loader: 'url-loader?limit=1024&name=fonts/[name].[ext]'
             },
             {
-                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
-            },
-            {
-                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file-loader'
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+                test: /\.(jpg|jpeg|gif|png)$/,
+                exclude: /node_modules/,
+                loader:'url-loader?limit=1024&name=images/[name].[ext]'
             }
         ]
     },
