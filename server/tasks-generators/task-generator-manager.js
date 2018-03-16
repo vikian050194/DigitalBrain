@@ -1,9 +1,13 @@
 function TaskGeneratorManager(tasksGenerators) {
-    var types = [];
+    var info = [];
 
     for(var prop in tasksGenerators){
         if(tasksGenerators.hasOwnProperty(prop)){
-            types.push(prop);
+            info.push({
+                id: prop,
+                title: tasksGenerators[prop].title,
+                description: tasksGenerators[prop].description
+            });
         }
     }
 
@@ -19,7 +23,7 @@ function TaskGeneratorManager(tasksGenerators) {
 
             return result;
         },
-        getTasksGeneratorsTypes: () => types           
+        getTasksGeneratorsInfo: () => info           
     }
 }
 

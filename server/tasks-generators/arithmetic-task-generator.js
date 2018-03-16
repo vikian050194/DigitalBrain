@@ -8,7 +8,9 @@ function ArithmeticTaskGenerator(integerGenerator) {
                         result = a + b;
                     return { a, b, result, operation };
             }
-        }
+        },
+        title: 'Basic arithmetic',
+        description: 'Addition and so on, nothing special.'
     }
 }
 

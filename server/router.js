@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 
 router.route('/task')
     .get(function (req, res) {
-        res.send(baz.getTasksGeneratorsTypes());
+        res.send(baz.getTasksGeneratorsInfo());
     })
     .post(function (req, res) {
         var settings = Settings('arithmetic', '+', 1, 1, 9);

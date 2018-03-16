@@ -80,10 +80,12 @@
             <p>
                 <div class="form-group">
                     <label for="taskType">Task type:</label>
-                    <select class="form-control" id="taskType">
-                        <option disabled>misc</option>
-                    </select>
+                    <select class="form-control" id="taskType"></select>
                 </div>
+            </p>
+            <p>
+                <label for="description">Task description:</label>
+                <div id="description" style="word-wrap:break-word;"></div>
             </p>
             <p>
                 <div class="form-group">
@@ -98,13 +100,24 @@
             <p>
                 <button type="button" id="start" class="btn btn-lg btn-success">Start</button>
             </p>
+
         </div>
-        <div id="game">
+        <div id="game" style="display:none;">
             <p>
+                <label for="task">Task:</label>
                 <h1 id="task"></h1>
             </p>
             <p>
+                <label for="score">Score:</label>
                 <div id="score"></div>
+            </p>
+            <p>
+                <label for="progress">Progress:</label>
+                <div class="progress">
+                    <div id="progress" class="progress-bar progress-bar-info progress-bar-striped active" style="width: 0%">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
             </p>
             <p>
                 <div class="form-group">
@@ -113,7 +126,7 @@
                 </div>
             </p>
             <p>
-                <button type="button" id="start" class="btn btn-lg btn-danger">Stop</button>
+                <button type="button" id="stop" class="btn btn-lg btn-danger">Stop</button>
             </p>
         </div>
 
