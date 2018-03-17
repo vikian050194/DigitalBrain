@@ -1,8 +1,8 @@
-function TaskGeneratorManager(tasksGenerators) {
+function TaskGeneratorManager(tasksGenerators , integerGenerator) {
     var info = [];
 
-    for(var prop in tasksGenerators){
-        if(tasksGenerators.hasOwnProperty(prop)){
+    for (var prop in tasksGenerators) {
+        if (tasksGenerators.hasOwnProperty(prop)) {
             info.push({
                 id: prop,
                 title: tasksGenerators[prop].title,
@@ -16,14 +16,20 @@ function TaskGeneratorManager(tasksGenerators) {
             var generator = tasksGenerators[settings.taskType];
             var result = [];
 
-            for(var i = 0; i < settings.count; i++){
-                var newTask = generator.next(settings.operation, settings.min, settings.max);
+            for (var i = 0; i < settings.count; i++) {
+                var operationIndex = 0;
+                
+                if (settings.operations.length > 1) {
+                    operationIndex = integerGenerator.next(0, settings.operations.length - 1);
+                }
+
+                var newTask = generator.next(settings.operations[operationIndex], settings.level);
                 result.push(newTask);
             }
 
             return result;
         },
-        getTasksGeneratorsInfo: () => info           
+        getTasksGeneratorsInfo: () => info
     }
 }
 

@@ -1,6 +1,6 @@
-function Settings(taskType, operation, count, min, max) {
+function Settings(taskType, operations, level, count) {
     return {
-        taskType, operation, min, max, count
+        taskType, operations, level, count
     }
 }
 

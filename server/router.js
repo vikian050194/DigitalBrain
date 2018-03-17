@@ -23,6 +23,8 @@ router.route('/task')
         res.send(baz.getTasksGeneratorsInfo());
     })
     .post(function (req, res) {
+        var type = req.body.taskType;
+        var 
         var settings = Settings('arithmetic', '+', 1, 1, 9);
         res.send(baz.getTasks(settings));
     });

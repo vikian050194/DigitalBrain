@@ -2,6 +2,7 @@ $(document).ready(function () {
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
     var count = 0;
+    var max = 10;
     var task = undefined;
 
     $.ajax({
@@ -55,7 +56,7 @@ $(document).ready(function () {
     $('#stop').click(stop);
 
     function updateProgress() {
-        var w = count * 10;
+        var w = count * max;
         $('#progress').css('width', w + '%');
     }
 
