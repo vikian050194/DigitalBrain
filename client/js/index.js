@@ -1,9 +1,10 @@
 $(document).ready(function () {
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
-    var count = 0;
-    var max = 10;
-    var task = undefined;
+    var index = 0;
+    var count = 2;
+    var tasks = undefined;
+    var score = 0;
 
     $.ajax({
         type: "GET",
@@ -11,7 +12,7 @@ $(document).ready(function () {
         success: function (types) {
             var content = '';
             types.forEach(function (element) {
-                content += `<option value="${element.id}" data-toggle="tooltip" data-placement="right" description="${element.description}">${element.title}</option>`
+                content += `<option value="${element.id}" data-toggle="tooltip" data-placement="right" description="${element.description}">${element.title}</option>`;
             });
 
             $('#taskType').html(content);
@@ -20,16 +21,46 @@ $(document).ready(function () {
         }
     });
 
-    function next() {
+    $('#taskType').change(function (element) {
+        $('#description').html($(e).attr('description'));
+    });
+
+    function getSelectedOperations() {
+        $('operation')
+    }
+
+    function nextTask() {
         $('#answer').val('');
+        updateProgress();
+
+        if (index === count) {
+            $('#answer').prop('disabled', true);
+            return;
+        }
+
+        var task = tasks[index];
+        $('#task').html(`${task.a} ${task.operation} ${task.b} = ?`);
+        $('#answer').focus();
+    }
+
+    function fetchTasks() {
+        $('#answer').val('');
+        $('#answer').prop('disabled', false);
+
+        var data = {
+            taskType: $('#taskType').val(),
+            operations: ['+', '-'],
+            level: $('#level').val(),
+            count
+        };
 
         $.ajax({
             type: "POST",
             url: '/task',
-            success: function (tasks) {
-                task = tasks[0];
-                $('#task').html(`${task.a} ${task.operation} ${task.b} = ?`);
-                $('#answer').focus();
+            data,
+            success: function (result) {
+                tasks = result;
+                nextTask();
             }
         });
     }
@@ -39,41 +70,51 @@ $(document).ready(function () {
         $('#game').toggle();
     }
 
+    function reset() {
+        score = 0;
+        index = 0;
+
+        $('#progress').css('width', '0%');
+    }
+
     function start() {
+        reset();
         startStop();
-        next();
+        fetchTasks();
+        $('#score').html(`${score}/${count}`);
     }
 
     $('#start').click(start);
 
     function stop() {
         startStop();
-        count = 0;
-        updateProgress();
         $('#score').html('');
+        $('#history').html('');
     }
 
     $('#stop').click(stop);
 
     function updateProgress() {
-        var w = count * max;
+        var w = parseInt(100.0 * index / count);
         $('#progress').css('width', w + '%');
+        $('#progress').html(`${w}% Complete`);
     }
 
-    function changeScore(isCorrect) {
+    function updateScore(isCorrect) {
         var plus = '<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>';
         var minus = '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>';
-        var newContent = $('#score').html() + (isCorrect ? plus : minus);
-        $('#score').html(newContent);
+        var newContent = $('#history').html() + (isCorrect ? plus : minus);
+        $('#history').html(newContent);
+        score += isCorrect ? 1 : -1;
+        $('#score').html(`${score}/${count}`);
     }
 
     $("#answer").on("keydown", function (e) {
         if (e.which == 13) {
-            count++;
-            updateProgress();
-            var isCorrect = $("#answer").val() == task.result;
-            changeScore(isCorrect);
-            next();
+            var isCorrect = $("#answer").val() == tasks[index].result;
+            updateScore(isCorrect);
+            index++;
+            nextTask();
         }
     });
 });

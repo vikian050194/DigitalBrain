@@ -1,5 +1,6 @@
-function TaskGeneratorManager(tasksGenerators , integerGenerator) {
+function TaskGeneratorManager(tasksGenerators, dataGenerators) {
     var info = [];
+    var integerGenerator = dataGenerators.integerGenerator;
 
     for (var prop in tasksGenerators) {
         if (tasksGenerators.hasOwnProperty(prop)) {
@@ -18,7 +19,7 @@ function TaskGeneratorManager(tasksGenerators , integerGenerator) {
 
             for (var i = 0; i < settings.count; i++) {
                 var operationIndex = 0;
-                
+
                 if (settings.operations.length > 1) {
                     operationIndex = integerGenerator.next(0, settings.operations.length - 1);
                 }

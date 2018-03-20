@@ -91,9 +91,9 @@
                 <div class="form-group">
                     <label for="level">Level of difficulty:</label>
                     <select class="form-control" id="level">
-                        <option>Easy</option>
-                        <option disabled>Medium</option>
-                        <option disabled>Hard</option>
+                        <option value="0">Easy</option>
+                        <option value="1">Medium</option>
+                        <option value="2">Hard</option>
                     </select>
                 </div>
             </p>
@@ -109,7 +109,11 @@
             </p>
             <p>
                 <label for="score">Score:</label>
-                <div id="score"></div>
+                <h2 id="score"></h2>
+            </p>
+            <p>
+                <label for="score">History:</label>
+                <div id="history"></div>
             </p>
             <p>
                 <label for="progress">Progress:</label>

@@ -14,24 +14,24 @@ module.exports = {
             },
             {
                 test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url-loader?limit=1024&name=fonts/[name].[ext]'
+                loader: 'url-loader?limit=1024&name=/fonts/[name].[ext]'
             },
             {
                 test: /\.(jpg|jpeg|gif|png)$/,
                 exclude: /node_modules/,
-                loader:'url-loader?limit=1024&name=images/[name].[ext]'
+                loader:'url-loader?limit=1024&name=/images/[name].[ext]'
             }
         ]
     },
     output: {
-        filename: 'bundle.js',
-        path: __dirname + '/client/build'
+        filename: './build/bundle.js',
+        path: __dirname + '/client'
     },
     plugins: [
         new webpack.ProvidePlugin({
             '$': 'jquery',
             'jQuery': 'jquery'
         }),
-        new ExtractTextPlugin("bundle.css")
+        new ExtractTextPlugin("./build/bundle.css")
     ]
 };
