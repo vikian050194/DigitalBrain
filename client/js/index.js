@@ -1,6 +1,7 @@
 $(document).ready(function () {
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
+
     var index = 0;
     var count = 2;
     var tasks = undefined;
@@ -22,7 +23,7 @@ $(document).ready(function () {
     });
 
     $('#taskType').change(function (element) {
-        $('#description').html($(e).attr('description'));
+        $('#description').html($(element).attr('description'));
     });
 
     function getSelectedOperations() {

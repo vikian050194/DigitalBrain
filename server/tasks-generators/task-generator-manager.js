@@ -7,7 +7,8 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
             info.push({
                 id: prop,
                 title: tasksGenerators[prop].title,
-                description: tasksGenerators[prop].description
+                description: tasksGenerators[prop].description,
+                operations: tasksGenerators[prop].operations
             });
         }
     }
