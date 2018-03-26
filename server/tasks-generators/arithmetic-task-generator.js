@@ -24,17 +24,24 @@ function ArithmeticTaskGenerator(integerGenerator) {
                     var a = integerGenerator.next(min, max),
                         b = integerGenerator.next(min, max),
                         result = a + b;
-                    return { a, b, result, operation };
+                    break;
                 case '-':
                     var a = integerGenerator.next(min, max),
                         b = integerGenerator.next(min, max),
                         result = a - b;
-                    return { a, b, result, operation };
+                    break;
+                case '*':
+                    var a = integerGenerator.next(min, max),
+                        b = integerGenerator.next(min, max),
+                        result = a * b;
+                    break;
             }
+
+            return { a, b, result, operation };
         },
         title: 'Basic arithmetic',
         description: 'Addition and so on, nothing special.',
-        operations: ['+', '-']
+        operations: ['+', '-', '*']
     }
 }
 
