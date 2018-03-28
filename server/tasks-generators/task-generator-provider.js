@@ -2,7 +2,7 @@ var ArithmeticTaskGenerator = require('./arithmetic-task-generator');
 
 function TaskGeneratorProvider(dataGenerators) {
     var generators = {
-        arithmetic: ArithmeticTaskGenerator(dataGenerators.integerGenerator),
+        arithmetic: ArithmeticTaskGenerator(dataGenerators.integerGenerator)
     };
 
     return {
