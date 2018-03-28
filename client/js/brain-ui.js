@@ -18,7 +18,7 @@ BrainUI.prototype.fillOperations = function (operations) {
     var content = '';
     operations.forEach(function (element) {
         content +=
-            `<p><span operation="${element}" class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>&nbsp${element}</p>`;
+            `  <label class="btn btn-info" operation="${element}"><input type="checkbox" autocomplete="off">${element}</label>`;
     });
     $('#operations').html(content);
     $('.glyphicon-unchecked').each(function () {
@@ -43,7 +43,7 @@ BrainUI.prototype.fillLevels = function (levels) {
 
 BrainUI.prototype.getSelectedOperations = function () {
     var selectedOperations = [];
-    $('.glyphicon-check').each(function () {
+    $('label[class*="active"]').each(function () {
         selectedOperations.push($(this).attr('operation'));
     });
 

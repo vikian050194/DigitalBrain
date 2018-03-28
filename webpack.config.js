@@ -2,7 +2,7 @@ var webpack = require('webpack'),
     ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: ['./client/js/index.js', './client/js/index.css.js','bootstrap-loader'],
+    entry: ['./client/js/index.js', 'bootstrap-loader/extractStyles', './client/js/index.css.js'],
     module: {
         rules: [
             {
