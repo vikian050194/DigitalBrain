@@ -42,7 +42,7 @@ function ArithmeticTaskGenerator(integerGenerator) {
 
             return { a, b, result, operation };
         },
-        title: 'Basic arithmetic',
+        name: 'Basic arithmetic',
         description: 'Addition and so on, nothing special.',
         operations: ['+', '-', '*']
     }

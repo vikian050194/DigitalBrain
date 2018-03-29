@@ -1,27 +1,49 @@
 var BrainUI = require('./brain-ui'),
-    brainUI = new BrainUI();
+    brainUI = new BrainUI(),
+    d = $(document);
 
 function brain() {
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
 
-    var index = 0;
-    var count = 10;
-    var tasks = [];
-    var score = 0;
+    var fullInfo = {};
+
+    var state = {
+        count: 10,
+        tasks: [],
+        score: 0,
+        index: 0
+    }
 
     $.ajax({
         type: "GET",
         url: '/task',
-        success: function(res){
-            tasks = res;
-            brainUI.fillTasksTypes(tasks);
-            brainUI.fillOperations(tasks[0].operations);
+        success: function (r) {
+            fullInfo = r;
+            d.trigger('update:tasks', r);
         }
     });
-    
-    var levels = ['Pfhhh', 'Well, it was easy', 'Easy as well', 'Medium rare', 'Medium', 'Medium well', 'Please, do not do that', 'Hardcore', 'Insane', 'You shall not pass'];
-    brainUI.fillLevels(levels);
+
+    var levels = [
+        'Pfhhh',
+        'Well, it was easy',
+        'Easy as well',
+        'Medium rare',
+        'Medium',
+        'Medium well',
+        'Please, do not do that',
+        'Hardcore',
+        'Insane',
+        'You shall not pass'];
+    d.trigger('update:levels', levels);
+
+    d.on('fetch:description', function (jqe, id) {
+        d.trigger('update:description', fullInfo[id].description);
+    });
+
+    d.on('fetch:operations', function (jqe, id) {
+        d.trigger('update:operations', fullInfo[id].operations);
+    });
 
     function nextTask() {
         $('#answer').val('');

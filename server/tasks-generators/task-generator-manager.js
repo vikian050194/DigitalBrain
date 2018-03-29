@@ -1,15 +1,14 @@
 function TaskGeneratorManager(tasksGenerators, dataGenerators) {
-    var info = [];
+    var fullInfo = {};
     var integerGenerator = dataGenerators.integerGenerator;
 
     for (var prop in tasksGenerators) {
         if (tasksGenerators.hasOwnProperty(prop)) {
-            info.push({
-                id: prop,
-                title: tasksGenerators[prop].title,
+            fullInfo[prop] = {
+                name: tasksGenerators[prop].name,
                 description: tasksGenerators[prop].description,
                 operations: tasksGenerators[prop].operations
-            });
+            };
         }
     }
 
@@ -31,7 +30,13 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
 
             return result;
         },
-        getTasksGeneratorsInfo: () => info
+        getFullInfo: function(id){
+            if(id == undefined){
+                return fullInfo;
+            } else{
+                return fullInfo[id];
+            }
+        }
     }
 }
 

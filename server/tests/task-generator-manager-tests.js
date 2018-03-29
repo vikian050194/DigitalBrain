@@ -6,18 +6,20 @@ var assert = require('assert'),
 
 describe('Task generator manager: ', function () {
     it('Get tasks generators types', function () {
-        var tasksGenerators = { g1: { title: 't1', description: 'd1' }, g2: { title: 't2', description: 'd2' } },
+        var tasksGenerators = { g1: { name: 'n1', description: 'd1', operations:['op1'] }, g2: { name: 'n2', description: 'd2',operations:['op2'] } },
             dataGenerators = { integerGenerator: {} },
             taskGeneratorManager = TaskGeneratorManager(tasksGenerators, dataGenerators),
             types = taskGeneratorManager.getTasksGeneratorsInfo();
 
         assert.equal(types.length, 2);
         assert.equal(types[0].id, 'g1');
-        assert.equal(types[0].title, 't1');
+        assert.equal(types[0].name, 'n1');
         assert.equal(types[0].description, 'd1');
+        assert.deepEqual(types[0].operations, ['op1']);
         assert.equal(types[1].id, 'g2');
-        assert.equal(types[1].title, 't2');
+        assert.equal(types[1].name, 'n2');
         assert.equal(types[1].description, 'd2');
+        assert.deepEqual(types[1].operations, ['op2']);
     });
 
     it('Get 3 arithmetic tasks for one operation(add)', function () {

@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 
 router.route('/task')
     .get(function (req, res) {
-        res.send(taskGeneratorManager.getTasksGeneratorsInfo());
+        res.send(taskGeneratorManager.getFullInfo());
     })
     .post(function (req, res) {
         var taskType = req.body.taskType,
@@ -32,5 +32,11 @@ router.route('/task')
             tasks = taskGeneratorManager.getTasks(settings);
         res.send(tasks);
     });
+
+    router.route('/task/:id/description')
+    .get(function (req, res) {
+        res.send(taskGeneratorManager.getFullInfo(req.params.id).description);
+    });
+
 
 module.exports = router;
