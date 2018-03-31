@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-static" id="navbar">
+    <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
         <div class="container">
             <div class="navbar-header">
                 <button class="collapsed navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
@@ -46,40 +46,28 @@
                     <select class="form-control" id="level"></select>
                 </div>
             </div>
-            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <hr />
+            <div class="row">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="count">Count:</label>
+                    <input id="count" type="text" class="form-control"/>
+                </div>
+            </div>
+            <hr />
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label for="description">Description:</label>
                     <div id="description" style="word-wrap:break-word;"></div>
                 </div>
             </div>
-            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <hr />
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label for="operations">Operations:</label>
-                    <div id="operations" class="funkyradio row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="funkyradio-success">
-                                <input id="checkbox:addition" type="checkbox" operation="a" autocomplete="off">
-                                <label for="checkbox:addition">Addition</label>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="funkyradio-success">
-                                <input id="checkbox:subtraction" type="checkbox" operation="s" autocomplete="off">
-                                <label for="checkbox:subtraction">Subtraction</label>
-                            </div>
-                        </div>
-                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="funkyradio-success">
-                                <input id="checkbox:multiplication" type="checkbox" operation="m" autocomplete="off">
-                                <label for="checkbox:multiplication">Multiplication</label>
-                            </div>
-                        </div> -->
-                    </div>
+                    <div id="operations" class="funkyradio row"></div>
                 </div>
             </div>
-            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <hr />
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <button type="button" id="start" class="btn btn-success">Start</button>

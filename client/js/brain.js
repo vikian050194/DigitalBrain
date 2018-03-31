@@ -1,8 +1,9 @@
 var BrainUI = require('./brain-ui'),
-    brainUI = new BrainUI(),
     d = $(document);
 
 function brain() {
+    var brainUI = new BrainUI();
+
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
 
@@ -61,7 +62,7 @@ function brain() {
             taskType: $('#taskType').val(),
             operations: brainUI.getSelectedOperations(),
             level: $('#level').val(),
-            count: 10
+            count: $('#count').val()
         };
 
         $.ajax({
@@ -103,11 +104,7 @@ function brain() {
 
     $('#stop').click(stop);
 
-    function updateProgress() {
-        var w = parseInt(100.0 * index / count);
-        $('#progress').css('width', w + '%');
-        $('#progress').html(`${w}% Complete`);
-    }
+
 
     function updateScore(isCorrect) {
         var plus = '<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>';

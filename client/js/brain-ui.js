@@ -1,3 +1,5 @@
+var Slider = require("bootstrap-slider");
+
 var d = $(document);
 
 function BrainUI() {
@@ -12,11 +14,23 @@ function BrainUI() {
     }
 
     $('#taskType').change(function () {
-        var id = this.val();
+        var id = this.value;
 
         d.trigger('update:description', id);
         d.trigger('update:operations', id);
     });
+
+
+    $('#count').val(5);
+    // new Slider("#count", {
+    //     // ticks: [1, 2, 3],
+    //     // "ticks-labels": ["short", "medium", "long"],
+    //     min: 1,
+    //     max: 3,
+    //     step: 1,
+    //     value: 3,
+    //     tooltip: "hide"
+    // });
 }
 
 BrainUI.prototype.getSelectedOperations = function () {
@@ -63,12 +77,13 @@ BrainUI.prototype.updateDescription = function (value) {
 
 BrainUI.prototype.updateOperations = function (operations) {
     var content = '',
-    width = 6,
-    count = operations.length - 1;
+        width = 6,
+        count = operations.length - 1,
+        isOdd = count % 2 == 0;
 
     operations.forEach(function (element, index) {
         var id = `checkbox:${element.name.toLowerCase()}`;
-        if(index == count){
+        if (index == count && isOdd) {
             width = 12;
         }
 
@@ -76,7 +91,6 @@ BrainUI.prototype.updateOperations = function (operations) {
             <input id="${id}"type="checkbox" operation="${element.id}" autocomplete="off"/>
             <label for="${id}">${element.name}</label>
         </div></div>`;
-        //content += `<div class="checkbox"><label><input type="checkbox" value="" >${element.name}</label></div>`;
     });
 
     $('#operations').html(content);
@@ -92,6 +106,12 @@ BrainUI.prototype.updateLevels = function (levels) {
     $('#level').html(content);
     $('#level').val(0);
 };
+
+BrainUI.prototype.updateProgress = function (index, count) {
+    var w = parseInt(100.0 * index / count);
+    $('#progress').css('width', w + '%');
+    $('#progress').html(`${w}% Complete`);
+}
 
 BrainUI.prototype.startStop = function () {
     $('#settings').toggle();
