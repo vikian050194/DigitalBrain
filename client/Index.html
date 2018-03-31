@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Digital Brain</title>
     <link href="build/bundle.css" rel="stylesheet">
     <script type="text/javascript" src="build/bundle.js"></script>
@@ -11,7 +12,7 @@
 
 <body>
     <nav class="navbar navbar-default navbar-static" id="navbar">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
                 <button class="collapsed navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-example-js-navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -25,9 +26,7 @@
             </div>
             <div class="collapse navbar-collapse bs-example-js-navbar-collapse">
                 <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
@@ -35,33 +34,57 @@
             </div>
         </div>
     </nav>
-
     <div class="container">
         <div id="settings">
-            <p>
-                <div class="form-group">
-                    <label for="taskType">Task type:</label>
+            <div class="row">
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="taskType">Task:</label>
                     <select class="form-control" id="taskType"></select>
                 </div>
-            </p>
-            <p>
-                <label for="description">Task description:</label>
-                <div id="description" style="word-wrap:break-word;"></div>
-            </p>
-            <p>
-                <label for="operations">Operations:</label>
-                <div id="operations" class="btn-group" data-toggle="buttons"></div>
-            </p>
-            <p>
-                <div class="form-group">
-                    <label for="level">Level of difficulty:</label>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <label for="level">Level:</label>
                     <select class="form-control" id="level"></select>
                 </div>
-            </p>
-            <p>
-                <button type="button" id="start" class="btn btn-lg btn-success">Start</button>
-            </p>
-
+            </div>
+            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <div class="row">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="description">Description:</label>
+                    <div id="description" style="word-wrap:break-word;"></div>
+                </div>
+            </div>
+            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <div class="row">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <label for="operations">Operations:</label>
+                    <div id="operations" class="funkyradio row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="funkyradio-success">
+                                <input id="checkbox:addition" type="checkbox" operation="a" autocomplete="off">
+                                <label for="checkbox:addition">Addition</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="funkyradio-success">
+                                <input id="checkbox:subtraction" type="checkbox" operation="s" autocomplete="off">
+                                <label for="checkbox:subtraction">Subtraction</label>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="funkyradio-success">
+                                <input id="checkbox:multiplication" type="checkbox" operation="m" autocomplete="off">
+                                <label for="checkbox:multiplication">Multiplication</label>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12" /> -->
+            <div class="row">
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button type="button" id="start" class="btn btn-success">Start</button>
+                </div>
+            </div>
         </div>
         <div id="game" style="display:none;">
             <p>
@@ -91,7 +114,7 @@
                 </div>
             </p>
             <p>
-                <button type="button" id="stop" class="btn btn-lg btn-danger">Stop</button>
+                <button type="button" id="stop" class="btn btn-danger">Stop</button>
             </p>
         </div>
 

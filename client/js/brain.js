@@ -6,21 +6,15 @@ function brain() {
     $.ajaxSetup({ cache: false });
     $('#answer').focus();
 
-    var fullInfo = {};
-
-    var state = {
-        count: 10,
-        tasks: [],
-        score: 0,
-        index: 0
-    }
+    var fullInfo = {},
+        state = {};
 
     $.ajax({
         type: "GET",
         url: '/task',
         success: function (r) {
             fullInfo = r;
-            d.trigger('update:tasks', r);
+            brainUI.updateTasks(r);
         }
     });
 
@@ -35,14 +29,14 @@ function brain() {
         'Hardcore',
         'Insane',
         'You shall not pass'];
-    d.trigger('update:levels', levels);
+    brainUI.updateLevels(levels);
 
-    d.on('fetch:description', function (jqe, id) {
-        d.trigger('update:description', fullInfo[id].description);
+    d.on('update:description', function (jqe, id) {
+        brainUI.updateDescription(fullInfo[id].description);
     });
 
-    d.on('fetch:operations', function (jqe, id) {
-        d.trigger('update:operations', fullInfo[id].operations);
+    d.on('update:operations', function (jqe, id) {
+        brainUI.updateOperations(fullInfo[id].operations);
     });
 
     function nextTask() {
@@ -67,7 +61,7 @@ function brain() {
             taskType: $('#taskType').val(),
             operations: brainUI.getSelectedOperations(),
             level: $('#level').val(),
-            count
+            count: 10
         };
 
         $.ajax({
@@ -81,21 +75,20 @@ function brain() {
         });
     }
 
-    function startStop() {
-        $('#settings').toggle();
-        $('#game').toggle();
-    }
-
     function reset() {
-        score = 0;
-        index = 0;
+        state = {
+            count: 10,
+            tasks: [],
+            score: 0,
+            index: 0
+        };
 
         $('#progress').css('width', '0%');
     }
 
     function start() {
         reset();
-        startStop();
+        brainUI.startStop();
         fetchTasks();
         $('#score').html(`${score}/${count}`);
     }

@@ -2,7 +2,7 @@ function Settings(minA, maxA, minB, maxB) {
     return { minA, maxA, minB, maxB };
 }
 
-function ArithmeticTaskGenerator(integerGenerator) {
+function MatrixTaskGenerator(integerGenerator) {
     var allSettings = {};
     allSettings[0] = new Settings(0, 9, 0, 9);
     allSettings[1] = new Settings(0, 9, 10, 99);
@@ -38,18 +38,30 @@ function ArithmeticTaskGenerator(integerGenerator) {
                 case 'm':
                     var result = a * b;
                     break;
+                case 'd':
+                    var result = a * b;
+                    break;
+                case 't':
+                    var result = a * b;
+                    break;
+                case 'g':
+                    var result = a * b;
+                    break;
             }
 
             return { a, b, result, operation };
         },
-        name: 'Arithmetic',
-        description: 'Addition and so on, nothing special.',
+        name: 'Matrix',
+        description: 'Operations with matrices.',
         operations: [
             { id: 'a', name: 'Addition' },
             { id: 's', name: 'Subtraction' },
-            { id: 'm', name: 'Multiplication' }
+            { id: 'm', name: 'Multiplication' },
+            { id: 'd', name: 'Determinant' },
+            { id: 't', name: 'Transposition' },
+            { id: 'g', name: 'Gaussian elimination' },
         ]
     }
 }
 
-module.exports = ArithmeticTaskGenerator;
+module.exports = MatrixTaskGenerator;
