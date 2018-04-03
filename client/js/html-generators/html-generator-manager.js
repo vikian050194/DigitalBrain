@@ -12,4 +12,4 @@ function HtmlGeneratorManager(htmlGenerators) {
     }
 }
 
-module.exports = TaskGeneratorManager;
+module.exports = HtmlGeneratorManager;

@@ -40,30 +40,15 @@ function brain() {
         brainUI.updateOperations(fullInfo[id].operations);
     });
 
-    function nextTask() {
-        $('#answer').val('');
-        updateProgress();
-
-        if (index === count) {
-            $('#answer').prop('disabled', true);
-            return;
-        }
-
-        var task = tasks[index];
-        $('#task').html(`${task.a} ${task.operation} ${task.b} = ?`);
-        $('#answer').focus();
-    }
-
-    function fetchTasks() {
-        $('#answer').val('');
-        $('#answer').prop('disabled', false);
-
+    d.on('game:start', function () {
         var data = {
-            taskType: $('#taskType').val(),
+            taskType: brainUI.getSelectedTaskType(),
             operations: brainUI.getSelectedOperations(),
-            level: $('#level').val(),
-            count: $('#count').val()
+            level: brainUI.getSelectedLevel(),
+            count: brainUI.getSelectedCount()
         };
+
+        state.type = data.taskType;
 
         $.ajax({
             type: "POST",
@@ -71,58 +56,38 @@ function brain() {
             data,
             success: function (result) {
                 tasks = result;
+                reset();
+                brainUI.reset();
+                brainUI.start();
                 nextTask();
             }
         });
+    });
+
+    d.on('game:stop', function () {
+        brainUI.stop();
+    });
+
+    function nextTask() {
+        if (index == count) {
+            brainUI.finish();
+        }
+
+        brainUI.updateProgress(state.index, state.count);
+        state.index++;
+
+        brainUI.updateTask(state.type, state.tasks[state.index]);
     }
 
     function reset() {
         state = {
-            count: 10,
+            count: 5,
             tasks: [],
             score: 0,
-            index: 0
+            index: 0,
+            type: ''
         };
-
-        $('#progress').css('width', '0%');
     }
-
-    function start() {
-        reset();
-        brainUI.startStop();
-        fetchTasks();
-        $('#score').html(`${score}/${count}`);
-    }
-
-    $('#start').click(start);
-
-    function stop() {
-        startStop();
-        $('#score').html('');
-        $('#history').html('');
-    }
-
-    $('#stop').click(stop);
-
-
-
-    function updateScore(isCorrect) {
-        var plus = '<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>';
-        var minus = '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>';
-        var newContent = $('#history').html() + (isCorrect ? plus : minus);
-        $('#history').html(newContent);
-        score += isCorrect ? 1 : -1;
-        $('#score').html(`${score}/${count}`);
-    }
-
-    $("#answer").on("keydown", function (e) {
-        if (e.which == 13) {
-            var isCorrect = $("#answer").val() == tasks[index].result;
-            updateScore(isCorrect);
-            index++;
-            nextTask();
-        }
-    });
 }
 
 module.exports = brain;

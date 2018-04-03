@@ -1,17 +1,11 @@
-var Slider = require("bootstrap-slider");
-
-var d = $(document);
+var Slider = require("bootstrap-slider"),
+    HtmlGeneratorManager = require('./html-generators/html-generator-manager'),
+    htmlGeneratorManager = new HtmlGeneratorManager(),
+    d = $(document);
 
 function BrainUI() {
-    function getArguments(a) {
-        var result = [];
-
-        for (var i = 1; i < a.length; i++) {
-            result.push(a[i]);
-        }
-
-        return result;
-    }
+    $('#settings').show();
+    $('#game').hide();
 
     $('#taskType').change(function () {
         var id = this.value;
@@ -20,6 +14,22 @@ function BrainUI() {
         d.trigger('update:operations', id);
     });
 
+    $('#start').click(function () {
+        d.trigger('game:start');
+    });
+
+    $('#stop').click(function () {
+        d.trigger('game:stop');
+    });
+
+    $("#answer").on("keydown", function (e) {
+        if (e.which == 13) {
+            var isCorrect = $("#answer").val() == tasks[index].result;
+            updateScore(isCorrect);
+            index++;
+            nextTask();
+        }
+    });
 
     $('#count').val(5);
     // new Slider("#count", {
@@ -31,6 +41,18 @@ function BrainUI() {
     //     value: 3,
     //     tooltip: "hide"
     // });
+}
+
+BrainUI.prototype.getSelectedTaskType = function () {
+    return $('#taskType').val();
+}
+
+BrainUI.prototype.getSelectedLevel = function () {
+    return $('#level').val();
+}
+
+BrainUI.prototype.getSelectedCount = function () {
+    return $('#count').val();
 }
 
 BrainUI.prototype.getSelectedOperations = function () {
@@ -107,15 +129,51 @@ BrainUI.prototype.updateLevels = function (levels) {
     $('#level').val(0);
 };
 
-BrainUI.prototype.updateProgress = function (index, count) {
+function updateProgress(index, count) {
     var w = parseInt(100.0 * index / count);
     $('#progress').css('width', w + '%');
     $('#progress').html(`${w}% Complete`);
 }
 
-BrainUI.prototype.startStop = function () {
-    $('#settings').toggle();
-    $('#game').toggle();
+BrainUI.prototype.updateProgress = updateProgress;
+
+var plus = '<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>';
+var minus = '<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>';
+
+BrainUI.prototype.updateHistory = function (isCorrectAnswer) {
+    var newContent = $('#history').html() + (isCorrectAnswer ? plus : minus);
+    $('#history').html(newContent);
+}
+
+BrainUI.prototype.updateScore = function (score) {
+    $('#score').html(`${score}`);
+}
+
+BrainUI.prototype.reset = function () {
+    $('#answer').val('');
+    $('#answer').prop('disabled', false);
+    $('#score').html('');
+    $('#history').html('');
+    $('#task').html('');
+
+    updateProgress(0, 1);
+}
+
+BrainUI.prototype.start = function () {
+    $('#settings').hide();
+    $('#game').show();
 };
+
+BrainUI.prototype.stop = function () {
+    $('#settings').show();
+    $('#game').hide();
+}
+
+BrainUI.prototype.updateTask = function (type, task) {
+    $('#answer').val('');
+    var content = htmlGeneratorManager.renderTask(type, task);
+    $('#task').html(content);
+    $('#answer').focus();
+}
 
 module.exports = BrainUI;
