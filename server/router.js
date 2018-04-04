@@ -38,5 +38,4 @@ router.route('/task')
         res.send(taskGeneratorManager.getFullInfo(req.params.id).description);
     });
 
-
 module.exports = router;
