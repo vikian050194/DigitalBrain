@@ -48,16 +48,15 @@ function brain() {
             count: brainUI.getSelectedCount()
         };
 
-        state.type = data.taskType;
-
         $.ajax({
             type: "POST",
             url: '/task',
             data,
             success: function (result) {
-                tasks = result;
                 reset();
                 brainUI.reset();
+                state.tasks = result;
+                state.type = data.taskType;
                 brainUI.start();
                 nextTask();
             }
@@ -68,15 +67,20 @@ function brain() {
         brainUI.stop();
     });
 
+    d.on('game:submit', function (jqe, answer) {
+        var isCorrect = answer == state.tasks[state.index].result;
+        state.score = state.score + (isCorrect ? 1 : -1);
+        brainUI.updateHistory(isCorrect);
+    });
+
     function nextTask() {
-        if (index == count) {
+        if (state.index == state.count) {
             brainUI.finish();
         }
 
         brainUI.updateProgress(state.index, state.count);
-        state.index++;
-
         brainUI.updateTask(state.type, state.tasks[state.index]);
+        // state.index++;
     }
 
     function reset() {
@@ -88,6 +92,8 @@ function brain() {
             type: ''
         };
     }
+
+    reset();
 }
 
 module.exports = brain;

@@ -1,13 +1,18 @@
+var HtmlGeneratorProvider = require("./html-generator-provider");
+
 function HtmlGeneratorManager(htmlGenerators) {
+    if (htmlGenerators == undefined) {
+        htmlGenerators = (new HtmlGeneratorProvider()).getAllGenerators();
+    }
 
     return {
-        renderTask: function (settings) {
-            var generator = tasksGenerators[settings.taskType];
-            return generator.renderTask(settings.data);
+        renderTask: function (type, task) {
+            var generator = htmlGenerators[type];
+            return generator.renderTask(task);
         },
-        renderTaskWithCorrectAnswer: function(settings){
-            var generator = tasksGenerators[settings.taskType];
-            return generator.renderTaskWithCorrectAnswer(settings.data);
+        renderTaskWithCorrectAnswer: function (type, task) {
+            var generator = htmlGenerators[type];
+            return generator.renderTaskWithCorrectAnswer(task);
         }
     }
 }

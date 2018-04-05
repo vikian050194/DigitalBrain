@@ -29,25 +29,30 @@ function ArithmeticTaskGenerator(integerGenerator) {
                 result = 0;
 
             switch (operation) {
-                case 'a':
+                case "a":
                     result = a + b;
                     break;
-                case 's':
+                case "s":
                     var result = a - b;
                     break;
-                case 'm':
+                case "m":
                     var result = a * b;
                     break;
             }
 
-            return { a, b, result, operation };
+            return {
+                a: a.toString(),
+                b: b.toString(),
+                result: result.toString(),
+                operation
+            };
         },
-        name: 'Arithmetic',
-        description: 'Addition and so on, nothing special.',
+        name: "Arithmetic",
+        description: "Addition and so on, nothing special.",
         operations: [
-            { id: 'a', name: 'Addition' },
-            { id: 's', name: 'Subtraction' },
-            { id: 'm', name: 'Multiplication' }
+            { id: "a", name: "Addition" },
+            { id: "s", name: "Subtraction" },
+            { id: "m", name: "Multiplication" }
         ]
     }
 }
