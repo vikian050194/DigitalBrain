@@ -44,6 +44,7 @@ function ArithmeticTaskGenerator(integerGenerator) {
                 a: a.toString(),
                 b: b.toString(),
                 result: result.toString(),
+                type: "arithmetic",
                 operation
             };
         },

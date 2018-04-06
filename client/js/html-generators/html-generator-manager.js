@@ -6,12 +6,12 @@ function HtmlGeneratorManager(htmlGenerators) {
     }
 
     return {
-        renderTask: function (type, task) {
-            var generator = htmlGenerators[type];
+        renderTask: function (task) {
+            var generator = htmlGenerators[task.type];
             return generator.renderTask(task);
         },
-        renderTaskWithCorrectAnswer: function (type, task) {
-            var generator = htmlGenerators[type];
+        renderTaskWithCorrectAnswer: function (task) {
+            var generator = htmlGenerators[task.type];
             return generator.renderTaskWithCorrectAnswer(task);
         }
     }

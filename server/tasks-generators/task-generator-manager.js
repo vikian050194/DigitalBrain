@@ -1,4 +1,15 @@
+var taskGeneratorProvider = require("./task-generator-provider"),
+    dataGeneratorProvide = require("./../data-generators/data-generator-provider");
+
 function TaskGeneratorManager(tasksGenerators, dataGenerators) {
+    if (tasksGenerators == undefined) {
+        tasksGenerators = taskGeneratorProvider.getAllGenerators();
+    }
+
+    if (dataGenerators == undefined) {
+        dataGenerators = dataGeneratorProvide.getAllGenerators();
+    }
+
     var fullInfo = {};
     var integerGenerator = dataGenerators.integerGenerator;
 
@@ -30,10 +41,10 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
 
             return result;
         },
-        getFullInfo: function(id){
-            if(id == undefined){
+        getFullInfo: function (id) {
+            if (id == undefined) {
                 return fullInfo;
-            } else{
+            } else {
                 return fullInfo[id];
             }
         }

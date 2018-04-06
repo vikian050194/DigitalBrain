@@ -8,7 +8,13 @@ function brain() {
     $('#answer').focus();
 
     var fullInfo = {},
-        state = {};
+        state = {
+            count: 5,
+            tasks: [],
+            type: '',
+            score: 0,
+            index: 0
+        };
 
     $.ajax({
         type: "GET",
@@ -18,6 +24,9 @@ function brain() {
             brainUI.updateTasks(r);
         }
     });
+
+    var counts = [5, 10, 15, 20];
+    brainUI.updateCounts(counts);
 
     var levels = [
         'Pfhhh',
@@ -53,12 +62,19 @@ function brain() {
             url: '/task',
             data,
             success: function (result) {
-                reset();
                 brainUI.reset();
+
+                state.score = 0;
+                state.index = 0;
+
                 state.tasks = result;
+
                 state.type = data.taskType;
+                state.count = data.count;
+
+                brainUI.updateScore(state.score, state.count);
                 brainUI.start();
-                nextTask();
+                updateTask();
             }
         });
     });
@@ -68,32 +84,24 @@ function brain() {
     });
 
     d.on('game:submit', function (jqe, answer) {
+        brainUI.updateTask(state.tasks[state.index], true);
+
         var isCorrect = answer == state.tasks[state.index].result;
-        state.score = state.score + (isCorrect ? 1 : -1);
-        brainUI.updateHistory(isCorrect);
+        state.index++;
+        state.score = state.score + (isCorrect ? 1 : 0);
+        brainUI.updateScore(state.score, state.count);
+        brainUI.updateProgress(state.index, state.count);
+        brainUI.updateHistory(isCorrect, state.tasks[state.index - 1]);
+        updateTask();
     });
 
-    function nextTask() {
+    function updateTask() {
         if (state.index == state.count) {
-            brainUI.finish();
+            brainUI.finish(state.score, state.count);
+        } else {
+            brainUI.updateTask(state.tasks[state.index]);
         }
-
-        brainUI.updateProgress(state.index, state.count);
-        brainUI.updateTask(state.type, state.tasks[state.index]);
-        // state.index++;
     }
-
-    function reset() {
-        state = {
-            count: 5,
-            tasks: [],
-            score: 0,
-            index: 0,
-            type: ''
-        };
-    }
-
-    reset();
 }
 
 module.exports = brain;

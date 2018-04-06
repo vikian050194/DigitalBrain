@@ -1,5 +1,6 @@
 //var Slider = require("bootstrap-slider");
-var HtmlGeneratorManager = require("./html-generators/html-generator-manager"),
+var RandomInt = require('random-int'),
+    HtmlGeneratorManager = require("./html-generators/html-generator-manager"),
     htmlGeneratorManager = new HtmlGeneratorManager(),
     d = $(document);
 
@@ -22,13 +23,19 @@ function BrainUI() {
         d.trigger("game:stop");
     });
 
+    function submit() {
+        d.trigger("game:submit", $("#answer").val())
+    }
+
+    $("#submit").click(submit);
+
     $("#answer").on("keydown", function (e) {
         if (e.which == 13) {
-            d.trigger("game:submit", $("#answer").val())
+            submit();
         }
     });
 
-    $("#count").val(5);
+    // $("#count").val(0);
     // new Slider("#count", {
     //     // ticks: [1, 2, 3],
     //     // "ticks-labels": ["short", "medium", "long"],
@@ -96,9 +103,15 @@ BrainUI.prototype.updateDescription = function (value) {
 
 BrainUI.prototype.updateOperations = function (operations) {
     var content = "",
-        width = 6,
+        width = 4,
         count = operations.length - 1,
-        isOdd = count % 2 == 0;
+        isOdd = count % 3 == 0,
+        colors = [
+            "success",
+            "primary",
+            "danger",
+            "info",
+            "warning"];;
 
     operations.forEach(function (element, index) {
         var id = `checkbox:${element.name.toLowerCase()}`;
@@ -106,7 +119,8 @@ BrainUI.prototype.updateOperations = function (operations) {
             width = 12;
         }
 
-        content += `<div class="col-lg-${width} col-md-${width} col-sm-${width} col-xs-12"><div class="funkyradio-success">
+        var color = colors[RandomInt(0, colors.length - 1)];
+        content += `<div class="col-lg-${width} col-md-${width} col-sm-${width} col-xs-12"><div class="funkyradio-${color}">
             <input id="${id}"type="checkbox" operation="${element.id}" autocomplete="off"/>
             <label for="${id}">${element.name}</label>
         </div></div>`;
@@ -126,6 +140,17 @@ BrainUI.prototype.updateLevels = function (levels) {
     $("#level").val(0);
 };
 
+BrainUI.prototype.updateCounts = function (counts) {
+    var content = "";
+
+    counts.forEach(function (element) {
+        content += `<option value="${element}">${element}</option>`;
+    });
+
+    $("#count").html(content);
+    $("#count").val(5);
+};
+
 function updateProgress(index, count) {
     var w = parseInt(100.0 * index / count);
     $("#progress").css("width", w + "%");
@@ -134,21 +159,37 @@ function updateProgress(index, count) {
 
 BrainUI.prototype.updateProgress = updateProgress;
 
-var plus = `<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>`;
-var minus = `<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>`;
+var correct = `<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>`;
+var wrong = `<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>`;
 
-BrainUI.prototype.updateHistory = function (isCorrectAnswer) {
-    var newContent = $("#history").html() + (isCorrectAnswer ? plus : minus);
-    $("#history").html(newContent);
+BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
+    var content = $("#history").html();
+
+    if (isCorrectAnswer) {
+        content = `<h2>${correct}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
+    } else{
+        content = `<h2>${wrong}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
+    }
+
+    $("#history").html(content);
 }
 
-BrainUI.prototype.updateScore = function (score) {
-    $("#score").html(`${score}`);
+BrainUI.prototype.updateScore = function (score, count) {
+    $("#score").html(`Score: ${score}`);
+}
+
+function disableInput(isDisabled) {
+    $("#answer").prop("disabled", isDisabled);
+    $("#submit").prop("disabled", isDisabled);
+    $("#restart").prop("disabled", isDisabled);
+    $("#stop").prop("disabled", isDisabled);
 }
 
 BrainUI.prototype.reset = function () {
     $("#answer").val("");
-    $("#answer").prop("disabled", false);
+
+    disableInput(false);
+
     $("#score").html("");
     $("#history").html("");
     $("#task").html("");
@@ -166,9 +207,27 @@ BrainUI.prototype.stop = function () {
     $("#game").hide();
 }
 
-BrainUI.prototype.updateTask = function (type, task) {
-    $("#answer").val("");
-    var content = htmlGeneratorManager.renderTask(type, task);
+BrainUI.prototype.finish = function (score, count) {
+    disableInput(true);
+
+    alert(`Well done! You got ${score} from ${count}`);
+
+    setTimeout(function () {
+        $("#settings").show();
+        $("#game").hide();
+    }, 5000)
+
+}
+
+BrainUI.prototype.updateTask = function (task, showAnswer = false) {
+    disableInput(showAnswer);
+
+    if (!showAnswer) {
+        $("#answer").val("");
+    }
+    var content = showAnswer ?
+        htmlGeneratorManager.renderTaskWithCorrectAnswer(task) :
+        htmlGeneratorManager.renderTask(task);
     $("#task").html(content);
     $("#answer").focus();
 }

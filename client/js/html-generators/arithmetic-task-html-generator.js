@@ -7,16 +7,10 @@ function ArithmeticTaskHtmlGenerator() {
 
     return {
         renderTask: function (task) {
-            var result = '';
-
-            result = `${task.a} ${operations[task.operation]} ${task.b} = ?`;
-
-            return result;
+            return `${task.a} ${operations[task.operation]} ${task.b} = ?`;
         },
         renderTaskWithCorrectAnswer: function (task) {
-            var result = '';
-
-            return result;
+            return `${task.a} ${operations[task.operation]} ${task.b} = ${task.result}`;
         }
     }
 }
