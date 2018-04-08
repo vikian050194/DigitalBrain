@@ -175,7 +175,7 @@ BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
 }
 
 BrainUI.prototype.updateScore = function (score, count) {
-    $("#score").html(`Score: ${score}`);
+    $("#score").html(score);
 }
 
 function disableInput(isDisabled) {
