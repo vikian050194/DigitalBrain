@@ -1,24 +1,29 @@
-var BrainUI = require('./brain-ui'),
+var BrainUI = require("./brain-ui"),
     d = $(document);
 
 function brain() {
     var brainUI = new BrainUI();
 
     $.ajaxSetup({ cache: false });
-    $('#answer').focus();
+    $("#answer").focus();
 
     var fullInfo = {},
         state = {
-            count: 5,
             tasks: [],
-            type: '',
             score: 0,
-            index: 0
+            index: 0,
+            answers: [],
+            settings: {
+                taskType: "",
+                operations: [],
+                level: 0,
+                count: 5
+            }
         };
 
     $.ajax({
         type: "GET",
-        url: '/task',
+        url: "/task",
         success: function (r) {
             fullInfo = r;
             brainUI.updateTasks(r);
@@ -29,75 +34,84 @@ function brain() {
     brainUI.updateCounts(counts);
 
     var levels = [
-        'Pfhhh',
-        'Well, it was easy',
-        'Easy as well',
-        'Medium rare',
-        'Medium',
-        'Medium well',
-        'Please, do not do that',
-        'Hardcore',
-        'Insane',
-        'You shall not pass'];
+        "Pfhhh",
+        "Well, it was easy",
+        "Easy as well",
+        "Medium rare",
+        "Medium",
+        "Medium well",
+        "Please, do not do that",
+        "Hardcore",
+        "Insane",
+        "You shall not pass"];
     brainUI.updateLevels(levels);
 
-    d.on('update:description', function (jqe, id) {
+    d.on("update:description", function (jqe, id) {
         brainUI.updateDescription(fullInfo[id].description);
     });
 
-    d.on('update:operations', function (jqe, id) {
+    d.on("update:operations", function (jqe, id) {
         brainUI.updateOperations(fullInfo[id].operations);
     });
 
-    d.on('game:start', function () {
-        var data = {
-            taskType: brainUI.getSelectedTaskType(),
-            operations: brainUI.getSelectedOperations(),
-            level: brainUI.getSelectedLevel(),
-            count: brainUI.getSelectedCount()
-        };
+    function startGame() {
+        brainUI.reset();
+
+        state.score = 0;
+        state.index = 0;
+        state.answers = [];
 
         $.ajax({
             type: "POST",
-            url: '/task',
-            data,
+            url: "/task",
+            data: state.settings,
             success: function (result) {
-                brainUI.reset();
-
-                state.score = 0;
-                state.index = 0;
-
                 state.tasks = result;
 
-                state.type = data.taskType;
-                state.count = data.count;
-
-                brainUI.updateScore(state.score, state.count);
+                brainUI.updateScore(state.score, state.settings.count);
                 brainUI.start();
                 updateTask();
             }
         });
+
+    }
+
+    d.on("game:start", function () {
+        state.settings.taskType = brainUI.getSelectedTaskType();
+        state.settings.operations = brainUI.getSelectedOperations();
+        state.settings.level = brainUI.getSelectedLevel();
+        state.settings.count = brainUI.getSelectedCount();
+
+        startGame();
     });
 
-    d.on('game:stop', function () {
+    d.on("game:stop", function () {
         brainUI.stop();
     });
 
-    d.on('game:submit', function (jqe, answer) {
-        brainUI.updateTask(state.tasks[state.index], true);
+    d.on("game:restart", startGame);
 
+    d.on("game:submit", function (jqe, answer) {
+        brainUI.updateTask(state.tasks[state.index]);
+        state.answers.push(answer);
         var isCorrect = answer == state.tasks[state.index].result;
+        if (isCorrect) {
+            console.log(`${answer} is correct`);
+        } else {
+            console.log(`${answer} is wrong, answer is ${state.tasks[state.index].answer}`);
+        }
+
         state.index++;
         state.score = state.score + (isCorrect ? 1 : 0);
-        brainUI.updateScore(state.score, state.count);
-        brainUI.updateProgress(state.index, state.count);
+        brainUI.updateScore(state.score, state.settings.count);
+        brainUI.updateProgress(state.index, state.settings.count);
         brainUI.updateHistory(isCorrect, state.tasks[state.index - 1]);
         updateTask();
     });
 
     function updateTask() {
-        if (state.index == state.count) {
-            brainUI.finish(state.score, state.count);
+        if (state.index == state.settings.count) {
+            brainUI.finish(state.score, state.settings.count);
         } else {
             brainUI.updateTask(state.tasks[state.index]);
         }

@@ -23,6 +23,10 @@ function BrainUI() {
         d.trigger("game:stop");
     });
 
+    $("#restart").click(function () {
+        d.trigger("game:restart");
+    });
+
     function submit() {
         d.trigger("game:submit", $("#answer").val())
     }
@@ -167,7 +171,7 @@ BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
 
     if (isCorrectAnswer) {
         content = `<h2>${correct}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
-    } else{
+    } else {
         content = `<h2>${wrong}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
     }
 
@@ -178,9 +182,13 @@ BrainUI.prototype.updateScore = function (score, count) {
     $("#score").html(score);
 }
 
-function disableInput(isDisabled) {
+function disableInputAndSubmit(isDisabled) {
     $("#answer").prop("disabled", isDisabled);
     $("#submit").prop("disabled", isDisabled);
+}
+
+function disableInputAndAllButtons(isDisabled) {
+    disableInputAndSubmit(isDisabled);
     $("#restart").prop("disabled", isDisabled);
     $("#stop").prop("disabled", isDisabled);
 }
@@ -188,7 +196,7 @@ function disableInput(isDisabled) {
 BrainUI.prototype.reset = function () {
     $("#answer").val("");
 
-    disableInput(false);
+    disableInputAndAllButtons(false);
 
     $("#score").html("");
     $("#history").html("");
@@ -208,27 +216,21 @@ BrainUI.prototype.stop = function () {
 }
 
 BrainUI.prototype.finish = function (score, count) {
-    disableInput(true);
+    disableInputAndSubmit(true);
 
-    alert(`Well done! You got ${score} from ${count}`);
+    // alert(`Well done! You got ${score} from ${count}`);
 
-    setTimeout(function () {
-        $("#settings").show();
-        $("#game").hide();
-    }, 5000)
+    // setTimeout(function () {
+    //     $("#settings").show();
+    //     $("#game").hide();
+    // }, 5000)
 
 }
 
-BrainUI.prototype.updateTask = function (task, showAnswer = false) {
-    disableInput(showAnswer);
-
-    if (!showAnswer) {
-        $("#answer").val("");
-    }
-    var content = showAnswer ?
-        htmlGeneratorManager.renderTaskWithCorrectAnswer(task) :
-        htmlGeneratorManager.renderTask(task);
+BrainUI.prototype.updateTask = function (task) {
+    var content = htmlGeneratorManager.renderTask(task);
     $("#task").html(content);
+    $("#answer").val("");
     $("#answer").focus();
 }
 
