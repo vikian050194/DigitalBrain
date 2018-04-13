@@ -1,12 +1,14 @@
-var ArithmeticTaskHtmlGenerator = require('./arithmetic-task-html-generator');;
+var ArithmeticTaskHtmlGenerator = require("./arithmetic-task-html-generator"),
+    MatrixTaskHtmlGenerator = require("./matrix-task-html-generator");
 
 function HtmlGeneratorProvider() {
     var generators = {
-        arithmetic: ArithmeticTaskHtmlGenerator()
+        arithmetic: ArithmeticTaskHtmlGenerator(),
+        matrix: MatrixTaskHtmlGenerator()
     };
 
     return {
-        getAllGenerators: function() {
+        getAllGenerators: function () {
             return generators
         }
     };

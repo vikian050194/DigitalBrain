@@ -1,55 +1,80 @@
-function Settings(minA, maxA, minB, maxB) {
-    return { minA, maxA, minB, maxB };
+function Settings(size, min, max) {
+    return { size, min, max };
 }
 
 function MatrixTaskGenerator(integerGenerator) {
     var allSettings = {};
-    allSettings[0] = new Settings(0, 9, 0, 9);
-    allSettings[1] = new Settings(0, 9, 10, 99);
-    allSettings[2] = new Settings(0, 9, 100, 999);
-    allSettings[3] = new Settings(10, 99, 10, 99);
-    allSettings[4] = new Settings(10, 99, 100, 999);
-    allSettings[5] = new Settings(10, 99, 1000, 9999);
-    allSettings[6] = new Settings(100, 999, 100, 999);
-    allSettings[7] = new Settings(100, 999, 1000, 9999);
-    allSettings[8] = new Settings(100, 999, 10000, 99999);
-    allSettings[9] = new Settings(0, 9999999, 0, 9999999);
+    allSettings[0] = new Settings(2, 0, 5);
+    allSettings[1] = new Settings(2, 0, 9);
+    allSettings[2] = new Settings(2, -9, 9);
+    allSettings[3] = new Settings(3, 0, 5);
+    allSettings[4] = new Settings(3, 0, 9);
+    allSettings[5] = new Settings(3, -9, 9);
+    allSettings[6] = new Settings(4, 0, 5);
+    allSettings[7] = new Settings(4, 0, 9);
+    allSettings[8] = new Settings(4, -9, 9);
+    allSettings[9] = new Settings(5, -9, 9);
+
+    function generateMatrix(settings) {
+        const { size, min, max } = settings;
+
+        var elementsCount = size * size;
+
+        matrix = [];
+
+        for (let i = 0; i < size; i++) {
+            let line = [];
+
+            for (let j = 0; j < size; j++) {
+                line.push(integerGenerator.next(min, max));
+            }
+
+            matrix.push(line);
+        }
+
+        return matrix;
+    }
 
     return {
         next: function (operation, level) {
-            var isOriginalOrder = integerGenerator.next(0, 1) === 0;
-
-            var currentSettings = allSettings[level];
-            var minA = isOriginalOrder ? currentSettings.minA : currentSettings.minB,
-                maxA = isOriginalOrder ? currentSettings.maxA : currentSettings.maxB,
-                minB = !isOriginalOrder ? currentSettings.minA : currentSettings.minB,
-                maxB = !isOriginalOrder ? currentSettings.maxA : currentSettings.maxB,
-                a = integerGenerator.next(minA, maxA),
-                b = integerGenerator.next(minB, maxB),
-                result = 0;
+            const { size, min, max } = allSettings[level];
+            let a = generateMatrix(allSettings[level]),
+                b = generateMatrix(allSettings[level]),
+                result = null;
 
             switch (operation) {
                 case 'a':
-                    result = a + b;
+                    result = "";
+                    for (let i = 0; i < size; i++) {
+                        for (let j = 0; j < size; j++) {
+                            result += (a[i][j] + b[i][j]);
+                        }
+                    }
                     break;
                 case 's':
-                    var result = a - b;
+                    result = a - b;
                     break;
                 case 'm':
-                    var result = a * b;
+                    result = a * b;
                     break;
                 case 'd':
-                    var result = a * b;
+                    result = a * b;
                     break;
                 case 't':
-                    var result = a * b;
+                    result = a * b;
                     break;
                 case 'g':
-                    var result = a * b;
+                    result = a * b;
                     break;
             }
 
-            return { a, b, result, operation };
+            return {
+                a,
+                b,
+                result,
+                type: "matrix",
+                operation
+            };
         },
         name: 'Matrix',
         description: 'Operations with matrices.',
