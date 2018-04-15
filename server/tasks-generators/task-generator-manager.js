@@ -35,7 +35,12 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
                     operationIndex = integerGenerator.next(0, settings.operations.length - 1);
                 }
 
-                var newTask = generator.next(settings.operations[operationIndex], settings.level);
+                var newTask = null;
+
+                do {
+                    newTask = generator.next(settings.operations[operationIndex], settings.level)
+                } while (i != 0 && newTask.result == result[i - 1])
+
                 result.push(newTask);
             }
 

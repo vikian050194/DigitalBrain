@@ -1,12 +1,14 @@
 //var Slider = require("bootstrap-slider");
-var RandomInt = require('random-int'),
-    HtmlGeneratorManager = require("./html-generators/html-generator-manager"),
+var HtmlGeneratorManager = require("./html-generators/html-generator-manager"),
     htmlGeneratorManager = new HtmlGeneratorManager(),
     d = $(document);
 
 function BrainUI() {
     $("#settings").show();
     $("#game").hide();
+
+    $(".loader-conteiner").hide();
+
 
     $("#taskType").change(function () {
         var id = this.value;
@@ -123,7 +125,7 @@ BrainUI.prototype.updateOperations = function (operations) {
             width = 12;
         }
 
-        var color = colors[RandomInt(0, colors.length - 1)];
+        var color = colors[1];
         content += `<div class="col-lg-${width} col-md-${width} col-sm-${width} col-xs-12"><div class="funkyradio-${color}">
             <input id="${id}"type="checkbox" operation="${element.id}" autocomplete="off"/>
             <label for="${id}">${element.name}</label>
@@ -198,6 +200,8 @@ BrainUI.prototype.reset = function () {
 
     disableInputAndAllButtons(false);
 
+    $("#stop").html("Stop");
+
     $("#score").html("");
     $("#history").html("");
     $("#task").html("");
@@ -208,6 +212,9 @@ BrainUI.prototype.reset = function () {
 BrainUI.prototype.start = function () {
     $("#settings").hide();
     $("#game").show();
+
+    $("#submit").removeClass("btn-default").addClass("btn-primary");
+    $("#stop").removeClass("btn-primary").addClass("btn-default");
 };
 
 BrainUI.prototype.stop = function () {
@@ -217,7 +224,9 @@ BrainUI.prototype.stop = function () {
 
 BrainUI.prototype.finish = function (score, count) {
     disableInputAndSubmit(true);
-
+    $("#submit").removeClass("btn-primary").addClass("btn-default");
+    $("#stop").removeClass("btn-default").addClass("btn-primary");
+    $("#stop").html("Finish");
     // alert(`Well done! You got ${score} from ${count}`);
 
     // setTimeout(function () {
@@ -232,6 +241,10 @@ BrainUI.prototype.updateTask = function (task) {
     $("#task").html(content);
     $("#answer").val("");
     $("#answer").focus();
+}
+
+BrainUI.prototype.showLoader = function () {
+    $(".loader-conteiner").toggle();
 }
 
 module.exports = BrainUI;

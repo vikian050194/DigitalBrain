@@ -24,21 +24,26 @@ function ArithmeticTaskGenerator(integerGenerator) {
                 maxA = isOriginalOrder ? currentSettings.maxA : currentSettings.maxB,
                 minB = !isOriginalOrder ? currentSettings.minA : currentSettings.minB,
                 maxB = !isOriginalOrder ? currentSettings.maxA : currentSettings.maxB,
-                a = integerGenerator.next(minA, maxA),
-                b = integerGenerator.next(minB, maxB),
+                a = 0,
+                b = 0,
                 result = 0;
 
-            switch (operation) {
-                case "a":
-                    result = a + b;
-                    break;
-                case "s":
-                    var result = a - b;
-                    break;
-                case "m":
-                    var result = a * b;
-                    break;
-            }
+            do {
+                a = integerGenerator.next(minA, maxA);
+                b = integerGenerator.next(minB, maxB);
+
+                switch (operation) {
+                    case "a":
+                        result = a + b;
+                        break;
+                    case "s":
+                        var result = a - b;
+                        break;
+                    case "m":
+                        var result = a * b;
+                        break;
+                }
+            } while (result == a || result == b);
 
             return {
                 a: a.toString(),

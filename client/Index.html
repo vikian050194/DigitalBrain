@@ -34,6 +34,15 @@
             </div>
         </div>
     </nav>
+    <div class="loader-conteiner">
+        <div id="loader" class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
     <div class="container">
         <div id="settings">
             <div class="row">
@@ -67,7 +76,7 @@
             <hr />
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" id="start" class="btn btn-default">Start</button>
+                    <button type="button" id="start" class="btn btn-primary">Start</button>
                 </div>
             </div>
         </div>
@@ -86,7 +95,7 @@
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label for="progress">Progress:</label>
                     <div class="progress">
-                        <div id="progress" class="progress-bar progress-bar-info progress-bar-striped active" style="width: 0%">
+                        <div id="progress" class="progress-bar progress-bar-primary progress-bar-striped active" style="width: 0%">
                             <span class="sr-only">0% Complete</span>
                         </div>
                     </div>
@@ -94,8 +103,8 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <label for="usr">Answer:</label>
-                    <input type="text" class="form-control" id="answer">
+                    <!-- <label for="usr">Answer:</label> -->
+                    <input type="text" class="form-control" id="answer" placeholder="Your answer is...">
                 </div>
             </div>
             <div class="row">
@@ -113,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <hr />            
+            <hr />
             <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <label for="score">History:</label>

@@ -4,8 +4,11 @@ var BrainUI = require("./brain-ui"),
 function brain() {
     var brainUI = new BrainUI();
 
-    $.ajaxSetup({ cache: false });
-    $("#answer").focus();
+    $.ajaxSetup({
+        cache: false,
+        beforeSend: brainUI.showLoader,
+        complete: brainUI.showLoader
+    });
 
     var fullInfo = {},
         state = {
@@ -95,11 +98,11 @@ function brain() {
         brainUI.updateTask(state.tasks[state.index]);
         state.answers.push(answer);
         var isCorrect = answer == state.tasks[state.index].result;
-        if (isCorrect) {
-            console.log(`${answer} is correct`);
-        } else {
-            console.log(`${answer} is wrong, answer is ${state.tasks[state.index].answer}`);
-        }
+        // if (isCorrect) {
+        //     console.log(`${answer} is correct`);
+        // } else {
+        //     console.log(`${answer} is wrong, answer is ${state.tasks[state.index].answer}`);
+        // }
 
         state.index++;
         state.score = state.score + (isCorrect ? 1 : 0);
