@@ -26,7 +26,7 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
     return {
         getTasks: function (settings) {
             var generator = tasksGenerators[settings.taskType];
-            var result = [];
+            var tasks = [];
 
             for (var i = 0; i < settings.count; i++) {
                 var operationIndex = 0;
@@ -39,12 +39,12 @@ function TaskGeneratorManager(tasksGenerators, dataGenerators) {
 
                 do {
                     newTask = generator.next(settings.operations[operationIndex], settings.level)
-                } while (i != 0 && newTask.result == result[i - 1])
+                } while (i != 0 && newTask.result == tasks[i - 1].result)
 
-                result.push(newTask);
+                tasks.push(newTask);
             }
 
-            return result;
+            return tasks;
         },
         getFullInfo: function (id) {
             if (id == undefined) {
