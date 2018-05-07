@@ -159,22 +159,21 @@ BrainUI.prototype.updateCounts = function (counts) {
 
 function updateProgress(index, count) {
     var w = parseInt(100.0 * index / count);
-    $("#progress").css("width", w + "%");
-    $("#progress").html(`${w}% Complete`);
+    $("#progress").html(`${w}%`);
 }
 
 BrainUI.prototype.updateProgress = updateProgress;
 
-var correct = `<span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:green;"></span>`;
-var wrong = `<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color:red;"></span>`;
+var correct = `<span class="glyphicon glyphicon-ok inline-task" aria-hidden="true" style="color:green;"></span>`;
+var wrong = `<span class="glyphicon glyphicon-remove inline-task" aria-hidden="true" style="color:red;"></span>`;
 
 BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
     var content = $("#history").html();
 
     if (isCorrectAnswer) {
-        content = `<h2>${correct}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
+        content = `<div>${correct}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
     } else {
-        content = `<h2>${wrong}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</h2>${content}`;
+        content = `<div>${wrong}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
     }
 
     $("#history").html(content);

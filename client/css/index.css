@@ -8,6 +8,51 @@ html,body
    width: 100%;
 }
 
-.navbar-default{
+#navbar{
     background-color: rgba(255,255,255,0.9);
+    background-image: none;
+}
+
+table td{
+    float: left;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ccc;
+    margin: 2px;
+    text-align: center;
+    padding: 0px;
+    border-radius: 4px;
+}
+
+table td{
+    padding-top: auto;
+    padding-bottom: auto;
+}
+
+#task {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.argument,
+.operation,
+.inline-task{
+    font-size: 30px;
+}
+
+.operation{
+    text-align: center;
+}
+
+#description{
+    word-wrap:break-word;
+}
+
+.score-conteiner{
+    float: right;
+}
+
+.progress-conteiner{
+    float: left;
 }
