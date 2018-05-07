@@ -2,57 +2,64 @@ body {
     padding-top: 70px;
 }
 
-html,body
-{
+html,
+body {
    min-width: 300px;
    width: 100%;
 }
 
-#navbar{
+#navbar {
     background-color: rgba(255,255,255,0.9);
     background-image: none;
 }
 
-table td{
+table td {
     float: left;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 2px solid #ccc;
-    margin: 2px;
+    margin: 1px;
     text-align: center;
     padding: 0px;
     border-radius: 4px;
 }
 
-table td{
-    padding-top: auto;
-    padding-bottom: auto;
-}
-
 #task {
-    display: grid;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .argument,
 .operation,
-.inline-task{
+.inline-task {
     font-size: 30px;
 }
 
-.operation{
+.operation {
     text-align: center;
 }
 
-#description{
+#description {
     word-wrap:break-word;
 }
 
-.score-conteiner{
+.score-conteiner {
     float: right;
 }
 
-.progress-conteiner{
+.progress-conteiner {
     float: left;
+}
+
+@media (orientation:landscape) {
+    #task{
+        flex-direction: row;
+    }
+}
+
+@media (orientation:portrait) {
+    #task{
+        flex-direction: column;
+    }
 }
