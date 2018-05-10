@@ -1,5 +1,7 @@
 var BrainUI = require("./brain-ui"),
-    d = $(document);
+    d = $(document),
+    AnswerConverter = require("./input-generators/answer-converter"),
+    answerConverter = new AnswerConverter();
 
 function brain() {
     var brainUI = new BrainUI();
@@ -94,15 +96,12 @@ function brain() {
 
     d.on("game:restart", startGame);
 
-    d.on("game:submit", function (jqe, answer) {
+    d.on("game:submit", function (jqe, answerConteiner) {
+        var answerModel = answerConverter.convert(state.tasks[state.index], answerConteiner.answer);
+
         brainUI.updateTask(state.tasks[state.index]);
-        state.answers.push(answer);
-        var isCorrect = answer == state.tasks[state.index].result;
-        // if (isCorrect) {
-        //     console.log(`${answer} is correct`);
-        // } else {
-        //     console.log(`${answer} is wrong, answer is ${state.tasks[state.index].answer}`);
-        // }
+        state.answers.push(answerModel);
+        var isCorrect = JSON.stringify(answerModel) == JSON.stringify(state.tasks[state.index].result);
 
         state.index++;
         state.score = state.score + (isCorrect ? 1 : 0);

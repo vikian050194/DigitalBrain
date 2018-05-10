@@ -13,19 +13,28 @@ body {
     background-image: none;
 }
 
-table td {
+table td span,
+table td input {
     float: left;
     width: 50px;
     height: 50px;
-    border: 2px solid #ccc;
+    border: 1px solid black;
     margin: 1px;
     text-align: center;
     padding: 0px;
     border-radius: 4px;
 }
 
-#task {
+.task-conteiner,
+.answer-conteiner,
+.history-conteiner {
     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#history {
+    display: grid;
     align-items: center;
     justify-content: center;
 }
@@ -53,13 +62,15 @@ table td {
 }
 
 @media (orientation:landscape) {
-    #task{
+    .task-conteiner,
+    .history-conteiner {
         flex-direction: row;
     }
 }
 
 @media (orientation:portrait) {
-    #task{
+    .task-conteiner,
+    .history-conteiner {
         flex-direction: column;
     }
 }

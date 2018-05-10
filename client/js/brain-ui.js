@@ -1,14 +1,25 @@
-//var Slider = require("bootstrap-slider");
 var HtmlGeneratorManager = require("./html-generators/html-generator-manager"),
     htmlGeneratorManager = new HtmlGeneratorManager(),
+    InputGeneratorManager = require("./input-generators/input-generator-manager"),
+    inputGeneratorManager = new InputGeneratorManager(),
     d = $(document);
+
+function submit() {
+    var answer = [];
+
+    $("[iid]").each(function (k, v) {
+        var input = $(v);
+        answer[input.attr("iid")] = input.val();
+    });
+
+    d.trigger("game:submit", { answer })
+}
 
 function BrainUI() {
     $("#settings").show();
     $("#game").hide();
 
     $(".loader-conteiner").hide();
-
 
     $("#taskType").change(function () {
         var id = this.value;
@@ -29,28 +40,7 @@ function BrainUI() {
         d.trigger("game:restart");
     });
 
-    function submit() {
-        d.trigger("game:submit", $("#answer").val())
-    }
-
     $("#submit").click(submit);
-
-    $("#answer").on("keydown", function (e) {
-        if (e.which == 13) {
-            submit();
-        }
-    });
-
-    // $("#count").val(0);
-    // new Slider("#count", {
-    //     // ticks: [1, 2, 3],
-    //     // "ticks-labels": ["short", "medium", "long"],
-    //     min: 1,
-    //     max: 3,
-    //     step: 1,
-    //     value: 3,
-    //     tooltip: "hide"
-    // });
 }
 
 BrainUI.prototype.getSelectedTaskType = function () {
@@ -109,9 +99,10 @@ BrainUI.prototype.updateDescription = function (value) {
 
 BrainUI.prototype.updateOperations = function (operations) {
     var content = "",
-        width = 4,
-        count = operations.length - 1,
-        isOdd = count % 3 == 0,
+        elementsInLine = 3,
+        width = 0,
+        count = operations.length,
+        fullLines = Math.floor(count / elementsInLine),
         colors = [
             "success",
             "primary",
@@ -119,18 +110,22 @@ BrainUI.prototype.updateOperations = function (operations) {
             "info",
             "warning"];;
 
-    operations.forEach(function (element, index) {
-        var id = `checkbox:${element.name.toLowerCase()}`;
-        if (index == count && isOdd) {
-            width = 12;
+    for (var i = 0; i < count; i++) {
+        var element = operations[i],
+            id = `checkbox:${element.name.toLowerCase()}`;
+
+        if (i >= fullLines * elementsInLine) {
+            width = 12 / (count % elementsInLine);
+        } else {
+            width = 12 / elementsInLine;
         }
 
         var color = colors[1];
         content += `<div class="col-lg-${width} col-md-${width} col-sm-${width} col-xs-12"><div class="funkyradio-${color}">
-            <input id="${id}"type="checkbox" operation="${element.id}" autocomplete="off"/>
-            <label for="${id}">${element.name}</label>
-        </div></div>`;
-    });
+                    <input id="${id}"type="checkbox" operation="${element.id}" autocomplete="off"/>
+                    <label for="${id}">${element.name}</label>
+                    </div></div>`;
+    }
 
     $("#operations").html(content);
 };
@@ -171,9 +166,9 @@ BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
     var content = $("#history").html();
 
     if (isCorrectAnswer) {
-        content = `<div>${correct}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
+        content = `<div class="alert alert-success">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}<hr />`;
     } else {
-        content = `<div>${wrong}&nbsp;${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
+        content = `<div class="alert alert-danger">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}<hr />`;
     }
 
     $("#history").html(content);
@@ -184,7 +179,7 @@ BrainUI.prototype.updateScore = function (score, count) {
 }
 
 function disableInputAndSubmit(isDisabled) {
-    $("#answer").prop("disabled", isDisabled);
+    $("[iid]").prop("disabled", isDisabled);
     $("#submit").prop("disabled", isDisabled);
 }
 
@@ -195,8 +190,6 @@ function disableInputAndAllButtons(isDisabled) {
 }
 
 BrainUI.prototype.reset = function () {
-    $("#answer").val("");
-
     disableInputAndAllButtons(false);
 
     $("#stop").html("Stop");
@@ -226,20 +219,24 @@ BrainUI.prototype.finish = function (score, count) {
     $("#submit").removeClass("btn-primary").addClass("btn-default");
     $("#stop").removeClass("btn-default").addClass("btn-primary");
     $("#stop").html("Finish");
-    // alert(`Well done! You got ${score} from ${count}`);
-
-    // setTimeout(function () {
-    //     $("#settings").show();
-    //     $("#game").hide();
-    // }, 5000)
-
 }
 
 BrainUI.prototype.updateTask = function (task) {
     var content = htmlGeneratorManager.renderTask(task);
     $("#task").html(content);
-    $("#answer").val("");
-    $("#answer").focus();
+    $(".answer-conteiner").html(inputGeneratorManager.renderInput(task, {}));
+    $("[iid=\"0\"]").focus();
+
+    $("[iid]").on("keydown", function (e) {
+        if (e.which == 13) {
+            var iid = parseInt($(this).attr("iid"));
+            if ($(this).attr("last") == undefined) {
+                $(`[iid="${iid + 1}"]`).focus();
+            } else {
+                submit();
+            }
+        }
+    });
 }
 
 BrainUI.prototype.showLoader = function () {

@@ -12,7 +12,7 @@ function MatrixTaskHtmlGenerator() {
             let line = "<tr>";
 
             for (let j = 0; j < matrix[i].length; j++) {
-                line+=`<td>${matrix[i][j]}</td>`;
+                line+=`<td><span>${matrix[i][j]}</span></td>`;
             }
 
             line += "</tr>";
@@ -26,10 +26,10 @@ function MatrixTaskHtmlGenerator() {
 
     return {
         renderTask: function (task) {
-            return `${renderMatrix(task.a)} <span class=\"operation\">${operations[task.operation]}</span> ${renderMatrix(task.b)}`;
+            return `${renderMatrix(task.a)} <span class=\"operation\"> ${operations[task.operation]}</span> ${renderMatrix(task.b)}`;
         },
         renderTaskWithCorrectAnswer: function (task) {
-            return `TODO: implement rendering for history;`;
+            return `<div class="history-conteiner" style="margin-bottom:15px;">${renderMatrix(task.a)} <span class=\"operation\">${operations[task.operation]}</span> ${renderMatrix(task.b)}</div><div class="history-conteiner">${renderMatrix(task.result)}</div>`;
         }
     }
 }

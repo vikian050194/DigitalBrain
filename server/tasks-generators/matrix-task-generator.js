@@ -44,15 +44,32 @@ function MatrixTaskGenerator(integerGenerator) {
 
             switch (operation) {
                 case 'a':
-                    result = "";
+                    result = [];
+                    var row = [];
+
                     for (let i = 0; i < size; i++) {
+                        row = [];
+
                         for (let j = 0; j < size; j++) {
-                            result += (a[i][j] + b[i][j]);
+                            row.push("" + (a[i][j] + b[i][j]));
                         }
+
+                        result.push(row);
                     }
                     break;
                 case 's':
-                    result = a - b;
+                    result = [];
+                    var row = [];
+
+                    for (let i = 0; i < size; i++) {
+                        row = [];
+
+                        for (let j = 0; j < size; j++) {
+                            row.push("" + (a[i][j] - b[i][j]));
+                        }
+
+                        result.push(row);
+                    }
                     break;
                 case 'm':
                     result = a * b;
@@ -80,11 +97,11 @@ function MatrixTaskGenerator(integerGenerator) {
         description: 'Operations with matrices.',
         operations: [
             { id: 'a', name: 'Addition' },
-            { id: 's', name: 'Subtraction' },
-            { id: 'm', name: 'Multiplication' },
-            { id: 'd', name: 'Determinant' },
-            { id: 't', name: 'Transposition' },
-            { id: 'g', name: 'Gaussian elimination' },
+            { id: 's', name: 'Subtraction' }
+            // { id: 'm', name: 'Multiplication' },
+            // { id: 'd', name: 'Determinant' },
+            // { id: 't', name: 'Transposition' }
+            // { id: 'g', name: 'Gaussian elimination' },
         ]
     }
 }
