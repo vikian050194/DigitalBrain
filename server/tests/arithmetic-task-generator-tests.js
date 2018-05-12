@@ -1,10 +1,20 @@
 var assert = require("assert"),
-    ArithmeticTaskGenerator = require("../tasks-generators/arithmetic-task-generator"),
-    TestIntegerGenerator = require("../data-generators/test-integer-generator");
+    ArithmeticTaskGenerator = require("../task-generators/arithmetic-task-generator"),
+    TestIntegerGenerator = require("./fakes/test-integer-generator");
 
 const type = "arithmetic";
 
 describe("Arithmetic tasks", function () {
+    it("Swapping of parameters for random generation", function () {
+        var level = 0,
+            operation = "a",
+            randomValues = [1, 1, 2],
+            g = new TestIntegerGenerator(randomValues),
+            a = new ArithmeticTaskGenerator(g);
+
+        assert.deepEqual(a.next(operation, level), { a: 1, b: 2, result: 3, operation, type});
+    });
+
     it("Generate 2 tasks for addition", function () {
         var level = 0,
             operation = "a",

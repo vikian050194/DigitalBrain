@@ -12,7 +12,7 @@ function submit() {
         answer[input.attr("iid")] = input.val();
     });
 
-    d.trigger("game:submit", { answer })
+    d.trigger("game:submit", { answer: answer });
 }
 
 function BrainUI() {
@@ -166,9 +166,9 @@ BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
     var content = $("#history").html();
 
     if (isCorrectAnswer) {
-        content = `<div class="alert alert-success">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}<hr />`;
+        content = `<div class="alert alert-success">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
     } else {
-        content = `<div class="alert alert-danger">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}<hr />`;
+        content = `<div class="alert alert-danger">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
     }
 
     $("#history").html(content);
@@ -230,6 +230,7 @@ BrainUI.prototype.updateTask = function (task) {
     $("[iid]").on("keydown", function (e) {
         if (e.which == 13) {
             var iid = parseInt($(this).attr("iid"));
+
             if ($(this).attr("last") == undefined) {
                 $(`[iid="${iid + 1}"]`).focus();
             } else {

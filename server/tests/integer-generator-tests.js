@@ -1,8 +1,8 @@
 var assert = require("assert"),
     IntegerGenerator = require("../data-generators/integer-generator"),
-    TestIntegerGenerator = require("../data-generators/test-integer-generator");
+    TestIntegerGenerator = require("./fakes/test-integer-generator");
 
-describe("Generators", function () {
+describe("Data generators: IntegerGenerator", function () {
     it("Test int gen: init without arguments and use", function () {
         var g = new TestIntegerGenerator();
 

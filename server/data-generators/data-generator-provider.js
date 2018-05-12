@@ -2,7 +2,7 @@ var IntegerGenerator = require('./integer-generator');;
 
 function DataGeneratorProvider() {
     var generators = {
-        integerGenerator: IntegerGenerator()
+        integerGenerator: new IntegerGenerator()
     };
 
     return {

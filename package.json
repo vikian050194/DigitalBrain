@@ -7,7 +7,8 @@
     "webpack": "webpack",
     "start-dev": "node-dev server/app.js",
     "webpack-dev": "webpack -w",
-    "test": "mocha --recursive ./server/tests"
+    "test": "mocha ./client/js/tests/**/*-tests.js ./server/tests/**/*-tests.js",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha -- ./client/js/tests/**/*-tests.js ./server/tests/**/*-tests.js"
   },
   "engines": {
     "node": "^8.9.4"

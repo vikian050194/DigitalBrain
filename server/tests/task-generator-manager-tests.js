@@ -1,10 +1,18 @@
 var assert = require("assert"),
-    TestIntegerGenerator = require("../data-generators/test-integer-generator"),
-    TaskGeneratorManager = require("../tasks-generators/task-generator-manager"),
-    TaskGeneratorProvider = require("../tasks-generators/task-generator-provider"),
-    Settings = require("../tasks-generators/settings");
+    TestIntegerGenerator = require("./fakes/test-integer-generator"),
+    TaskGeneratorManager = require("../task-generators/task-generator-manager"),
+    TaskGeneratorProvider = require("../task-generators/task-generator-provider"),
+    Settings = require("../task-generators/settings");
 
-describe("Task generator manager: ", function () {
+describe("Task generators: TaskGeneratorManager", function () {
+    it("Init task generator manager without arguments", function () {
+        var taskGeneratorManager = TaskGeneratorManager(),
+            types = taskGeneratorManager.getFullInfo();
+
+        assert.ok(types.arithmetic != undefined);
+        assert.ok(types.matrix != undefined);
+    });
+
     it("Get tasks generators types", function () {
         var tasksGenerators = {
             g1: {
@@ -24,6 +32,29 @@ describe("Task generator manager: ", function () {
 
         assert.deepEqual(types.g1, { name: "n1", description: "d1", operations: ["op1"] });
         assert.deepEqual(types.g2, { name: "n2", description: "d2", operations: ["op2"] });
+    });
+
+    it("Get task generator type", function () {
+        var tasksGenerators = {
+            g1: {
+                name: "n1",
+                description: "d1",
+                operations: ["op1"]
+            },
+            g2: {
+                name: "n2",
+                description: "d2",
+                operations: ["op2"]
+            }
+        },
+            dataGenerators = { integerGenerator: {} },
+            taskGeneratorManager = TaskGeneratorManager(tasksGenerators, dataGenerators),
+            type = taskGeneratorManager.getFullInfo("g1");
+
+        assert.deepEqual(type, { name: "n1", description: "d1", operations: ["op1"] });
+
+        type = taskGeneratorManager.getFullInfo("g2");
+        assert.deepEqual(type, { name: "n2", description: "d2", operations: ["op2"] });
     });
 
     it("Get 3 arithmetic tasks for one operation(add)", function () {

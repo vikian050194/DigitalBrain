@@ -1,13 +1,13 @@
-var taskGeneratorProvider = require("./task-generator-provider"),
-    dataGeneratorProvide = require("./../data-generators/data-generator-provider");
+var TaskGeneratorProvider = require("./task-generator-provider"),
+    DataGeneratorProvide = require("./../data-generators/data-generator-provider");
 
 function TaskGeneratorManager(tasksGenerators, dataGenerators) {
     if (tasksGenerators == undefined) {
-        tasksGenerators = taskGeneratorProvider.getAllGenerators();
+        tasksGenerators = (new TaskGeneratorProvider()).getAllGenerators();
     }
 
     if (dataGenerators == undefined) {
-        dataGenerators = dataGeneratorProvide.getAllGenerators();
+        dataGenerators = (new DataGeneratorProvide()).getAllGenerators();
     }
 
     var fullInfo = {};

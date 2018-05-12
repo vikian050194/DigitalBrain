@@ -4,9 +4,9 @@ var express = require('express'),
     path = require('path'),
     IntegerGenerator = require('./data-generators/integer-generator'),
     DataGeneratorProvider = require('./data-generators/data-generator-provider'),
-    TaskGeneratorProvider = require('./tasks-generators/task-generator-provider'),
-    TaskGeneratorManager = require('./tasks-generators/task-generator-manager'),
-    Settings = require('./tasks-generators/settings');
+    TaskGeneratorProvider = require('./task-generators/task-generator-provider'),
+    TaskGeneratorManager = require('./task-generators/task-generator-manager'),
+    Settings = require('./task-generators/settings');
 
 var dataGeneratorProvider = DataGeneratorProvider(),
     taskGeneratorProvider = TaskGeneratorProvider(dataGeneratorProvider.getAllGenerators()),

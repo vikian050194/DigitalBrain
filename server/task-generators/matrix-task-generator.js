@@ -18,8 +18,6 @@ function MatrixTaskGenerator(integerGenerator) {
     function generateMatrix(settings) {
         const { size, min, max } = settings;
 
-        var elementsCount = size * size;
-
         matrix = [];
 
         for (let i = 0; i < size; i++) {
@@ -35,53 +33,36 @@ function MatrixTaskGenerator(integerGenerator) {
         return matrix;
     }
 
+    function map(f, size, a, b) {
+        var result = [];
+        var row = [];
+
+        for (let i = 0; i < size; i++) {
+            row = [];
+
+            for (let j = 0; j < size; j++) {
+                row.push(f(a[i][j], b[i][j]).toString());
+            }
+
+            result.push(row);
+        }
+
+        return result;
+    }
+
     return {
         next: function (operation, level) {
             const { size, min, max } = allSettings[level];
             let a = generateMatrix(allSettings[level]),
                 b = generateMatrix(allSettings[level]),
-                result = null;
+                result = [];
 
             switch (operation) {
                 case 'a':
-                    result = [];
-                    var row = [];
-
-                    for (let i = 0; i < size; i++) {
-                        row = [];
-
-                        for (let j = 0; j < size; j++) {
-                            row.push("" + (a[i][j] + b[i][j]));
-                        }
-
-                        result.push(row);
-                    }
+                    result = map((a, b) => a + b, size, a, b);
                     break;
                 case 's':
-                    result = [];
-                    var row = [];
-
-                    for (let i = 0; i < size; i++) {
-                        row = [];
-
-                        for (let j = 0; j < size; j++) {
-                            row.push("" + (a[i][j] - b[i][j]));
-                        }
-
-                        result.push(row);
-                    }
-                    break;
-                case 'm':
-                    result = a * b;
-                    break;
-                case 'd':
-                    result = a * b;
-                    break;
-                case 't':
-                    result = a * b;
-                    break;
-                case 'g':
-                    result = a * b;
+                    result = map((a, b) => a - b, size, a, b);
                     break;
             }
 
