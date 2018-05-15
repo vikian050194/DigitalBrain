@@ -77,7 +77,7 @@ BrainUI.prototype.updateTasks = function (tasks) {
         }
 
         var element = tasks[task];
-        content += `<option value="${task}" data-toggle="tooltip" data-placement="right">${element.name}</option>`;
+        content += "<option value=\"" + task + "\">" + element.name + "</option>";
     }
 
     $("#taskType").html(content);
@@ -153,7 +153,7 @@ BrainUI.prototype.updateCounts = function (counts) {
 };
 
 function updateProgress(index, count) {
-    var w = parseInt(100.0 * index / count);
+    var w = Math.floor(100.0 * index / count);
     $("#progress").html(`${w}%`);
 }
 
