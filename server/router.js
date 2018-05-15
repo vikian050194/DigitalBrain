@@ -5,7 +5,7 @@ var express = require('express'),
     TaskGeneratorManager = require('./task-generators/task-generator-manager'),
     Settings = require('./task-generators/settings');
 
-var taskGeneratorManager = new TaskGeneratorManager(dataGeneratorProvider.getAllGenerators(), taskGeneratorProvider.getAllGenerators());
+var taskGeneratorManager = new TaskGeneratorManager();
 
 if (process.env.NODE_ENV === 'production') {
     router.route('/')
