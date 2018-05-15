@@ -3,16 +3,16 @@ var InputGeneratorProvider = require("./input-generator-provider"),
     InputSettingsProvider = require("./input-settings-provider");
 
 function InputGeneratorManager(inputTypeProvider, inputSettingsProvider, inputGenerators) {
-    if (inputGenerators == undefined) {
-        inputGenerators = (new InputGeneratorProvider()).getAllGenerators();
+    if (inputTypeProvider == undefined) {
+        inputTypeProvider = new InputTypeProvider();
     }
-
+    
     if (inputSettingsProvider == undefined) {
         inputSettingsProvider = new InputSettingsProvider();
     }
 
-    if (inputTypeProvider == undefined) {
-        inputTypeProvider = new InputTypeProvider();
+    if (inputGenerators == undefined) {
+        inputGenerators = (new InputGeneratorProvider()).getAllGenerators();
     }
 
     return {

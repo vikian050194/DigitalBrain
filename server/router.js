@@ -2,15 +2,10 @@ var express = require('express'),
     router = express.Router(),
     fs = require('fs'),
     path = require('path'),
-    IntegerGenerator = require('./data-generators/integer-generator'),
-    DataGeneratorProvider = require('./data-generators/data-generator-provider'),
-    TaskGeneratorProvider = require('./task-generators/task-generator-provider'),
     TaskGeneratorManager = require('./task-generators/task-generator-manager'),
     Settings = require('./task-generators/settings');
 
-var dataGeneratorProvider = DataGeneratorProvider(),
-    taskGeneratorProvider = TaskGeneratorProvider(dataGeneratorProvider.getAllGenerators()),
-    taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators(), dataGeneratorProvider.getAllGenerators());
+var taskGeneratorManager = new TaskGeneratorManager(dataGeneratorProvider.getAllGenerators(), taskGeneratorProvider.getAllGenerators());
 
 if (process.env.NODE_ENV === 'production') {
     router.route('/')

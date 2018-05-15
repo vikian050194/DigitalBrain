@@ -6,7 +6,7 @@ function DataGeneratorProvider() {
     };
 
     return {
-        getAllGenerators: function() {
+        getAllGenerators: function () {
             return generators
         }
     };

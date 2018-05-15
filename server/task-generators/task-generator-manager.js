@@ -1,31 +1,31 @@
 var TaskGeneratorProvider = require("./task-generator-provider"),
     DataGeneratorProvide = require("./../data-generators/data-generator-provider");
 
-function TaskGeneratorManager(tasksGenerators, dataGenerators) {
-    if (tasksGenerators == undefined) {
-        tasksGenerators = (new TaskGeneratorProvider()).getAllGenerators();
-    }
-
+function TaskGeneratorManager(dataGenerators, taskGenerators) {
     if (dataGenerators == undefined) {
         dataGenerators = (new DataGeneratorProvide()).getAllGenerators();
     }
+    
+    if (taskGenerators == undefined) {
+        taskGenerators = (new TaskGeneratorProvider()).getAllGenerators();
+    }
 
-    var fullInfo = {};
-    var integerGenerator = dataGenerators.integerGenerator;
+    var fullInfo = {},
+        integerGenerator = dataGenerators.integerGenerator,
+        tasks = Object.getOwnPropertyNames(taskGenerators);
 
-    for (var prop in tasksGenerators) {
-        if (tasksGenerators.hasOwnProperty(prop)) {
-            fullInfo[prop] = {
-                name: tasksGenerators[prop].name,
-                description: tasksGenerators[prop].description,
-                operations: tasksGenerators[prop].operations
-            };
-        }
+    for (var i in tasks) {
+        var task = tasks[i];
+        fullInfo[task] = {
+            name: taskGenerators[task].name,
+            description: taskGenerators[task].description,
+            operations: taskGenerators[task].operations
+        };
     }
 
     return {
         getTasks: function (settings) {
-            var generator = tasksGenerators[settings.taskType];
+            var generator = taskGenerators[settings.taskType];
             var tasks = [];
 
             for (var i = 0; i < settings.count; i++) {

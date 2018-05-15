@@ -6,7 +6,7 @@ var assert = require("assert"),
 
 describe("Task generators: TaskGeneratorManager", function () {
     it("Init task generator manager without arguments", function () {
-        var taskGeneratorManager = TaskGeneratorManager(),
+        var taskGeneratorManager = new TaskGeneratorManager(),
             types = taskGeneratorManager.getFullInfo();
 
         assert.ok(types.arithmetic != undefined);
@@ -14,7 +14,7 @@ describe("Task generators: TaskGeneratorManager", function () {
     });
 
     it("Get tasks generators types", function () {
-        var tasksGenerators = {
+        var taskGenerators = {
             g1: {
                 name: "n1",
                 description: "d1",
@@ -27,7 +27,7 @@ describe("Task generators: TaskGeneratorManager", function () {
             }
         },
             dataGenerators = { integerGenerator: {} },
-            taskGeneratorManager = TaskGeneratorManager(tasksGenerators, dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGenerators),
             types = taskGeneratorManager.getFullInfo();
 
         assert.deepEqual(types.g1, { name: "n1", description: "d1", operations: ["op1"] });
@@ -35,7 +35,7 @@ describe("Task generators: TaskGeneratorManager", function () {
     });
 
     it("Get task generator type", function () {
-        var tasksGenerators = {
+        var taskGenerators = {
             g1: {
                 name: "n1",
                 description: "d1",
@@ -48,7 +48,7 @@ describe("Task generators: TaskGeneratorManager", function () {
             }
         },
             dataGenerators = { integerGenerator: {} },
-            taskGeneratorManager = TaskGeneratorManager(tasksGenerators, dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGenerators),
             type = taskGeneratorManager.getFullInfo("g1");
 
         assert.deepEqual(type, { name: "n1", description: "d1", operations: ["op1"] });
@@ -66,8 +66,8 @@ describe("Task generators: TaskGeneratorManager", function () {
             randomValues = [0, 1, 2, 0, 2, 4, 0, 5, 7],
             testIntegerGenerator = TestIntegerGenerator(randomValues),
             dataGenerators = { integerGenerator: testIntegerGenerator },
-            taskGeneratorProvider = TaskGeneratorProvider(dataGenerators),
-            taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators(), dataGenerators),
+            taskGeneratorProvider = new TaskGeneratorProvider(dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGeneratorProvider.getAllGenerators()),
             result = taskGeneratorManager.getTasks(settings);
 
         assert.equal(result.length, count);
@@ -85,8 +85,8 @@ describe("Task generators: TaskGeneratorManager", function () {
             randomValues = [1, 0, 1, 2, 0, 0, 2, 4, 1, 0, 5, 7],
             testIntegerGenerator = TestIntegerGenerator(randomValues),
             dataGenerators = { integerGenerator: testIntegerGenerator },
-            taskGeneratorProvider = TaskGeneratorProvider(dataGenerators),
-            taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators(), dataGenerators),
+            taskGeneratorProvider = new TaskGeneratorProvider(dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGeneratorProvider.getAllGenerators()),
             result = taskGeneratorManager.getTasks(settings);
 
         assert.equal(result.length, count);
@@ -104,8 +104,8 @@ describe("Task generators: TaskGeneratorManager", function () {
             randomValues = [0, 1, 0, 1, 2],
             testIntegerGenerator = TestIntegerGenerator(randomValues),
             dataGenerators = { integerGenerator: testIntegerGenerator },
-            taskGeneratorProvider = TaskGeneratorProvider(dataGenerators),
-            taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators(), dataGenerators),
+            taskGeneratorProvider = new TaskGeneratorProvider(dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGeneratorProvider.getAllGenerators()),
             result = taskGeneratorManager.getTasks(settings);
 
         assert.equal(result.length, count);
@@ -121,8 +121,8 @@ describe("Task generators: TaskGeneratorManager", function () {
             randomValues = [0, 1, 2, 0, 1, 2, 0, 4, 5],
             testIntegerGenerator = TestIntegerGenerator(randomValues),
             dataGenerators = { integerGenerator: testIntegerGenerator },
-            taskGeneratorProvider = TaskGeneratorProvider(dataGenerators),
-            taskGeneratorManager = TaskGeneratorManager(taskGeneratorProvider.getAllGenerators(), dataGenerators),
+            taskGeneratorProvider = new TaskGeneratorProvider(dataGenerators),
+            taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGeneratorProvider.getAllGenerators()),
             result = taskGeneratorManager.getTasks(settings);
 
         assert.equal(result.length, count);

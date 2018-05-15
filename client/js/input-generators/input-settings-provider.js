@@ -8,8 +8,8 @@ function getSettingsForMatrix(task) {
     }
 }
 
-function getDefaultInputSettings() {
-    return {
+function InputSettingsProvider() {
+    var settings = {
         "arithmetic": {
             "a": getEmptySettings,
             "s": getEmptySettings,
@@ -23,14 +23,8 @@ function getDefaultInputSettings() {
             "t": getSettingsForMatrix,
             "g": getSettingsForMatrix
         }
-    };
-}
-
-function InputSettingsProvider(settings) {
-    if (settings == undefined) {
-        settings = getDefaultInputSettings();
     }
-
+    ;
     return {
         getInputSettingsByTask: function (task) {
             return settings[task.type][task.operation](task);

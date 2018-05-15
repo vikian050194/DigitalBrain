@@ -6,7 +6,8 @@ describe("Input generators: InlineInputGenerator", function () {
         var g = new InlineInputGenerator(),
         input = g.renderInput();
 
-        assert.ok(input.contains("input"));
-        assert.ok(input.contains("iid"));
+        assert.ok(input.includes("input"));
+        assert.ok(input.includes("iid"));
+        assert.ok(input.includes("last"));
     });
 });

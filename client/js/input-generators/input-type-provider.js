@@ -1,11 +1,11 @@
-function getDefaultInputTypes() {
-    return {
+function InputTypeProvider() {
+    var types = {
         "arithmetic": {
             "a": "inline",
             "s": "inline",
             "m": "inline"
         },
-        "matrix":{
+        "matrix": {
             "a": "matrix",
             "s": "matrix",
             "m": "matrix",
@@ -14,12 +14,6 @@ function getDefaultInputTypes() {
             "g": "matrix"
         }
     };
-}
-
-function InputTypeProvider(types) {
-    if (types == undefined) {
-        types = getDefaultInputTypes();
-    }
 
     return {
         getInputTypeByTask: function (task) {
