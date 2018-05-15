@@ -3,9 +3,9 @@ var assert = require("assert"),
 
 describe("Task generators: DataGeneratorProvider", function () {
     it("Initialize provider without parameters", function () {
-        var g = new TaskGeneratorProvider();
+        var p = new TaskGeneratorProvider();
 
-        assert.ok(g.getAllGenerators().arithmetic != undefined);
-        assert.ok(g.getAllGenerators().matrix != undefined);
+        assert.ok(p.getAllGenerators().arithmetic != undefined);
+        assert.ok(p.getAllGenerators().matrix != undefined);
     });
 });

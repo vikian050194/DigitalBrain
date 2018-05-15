@@ -9,10 +9,10 @@ describe("Matrix tasks", function () {
         var level = 0,
             operation = "a",
             randomValues = [1, 2, 3, 4, 5, 6, 7, 8],
-            g = new TestIntegerGenerator(randomValues),
-            a = new MatrixTaskGenerator(g);
+            i = new TestIntegerGenerator(randomValues),
+            g = new MatrixTaskGenerator(i);
 
-        assert.deepEqual(a.next(operation, level), {
+        assert.deepEqual(g.next(operation, level), {
             a: [["1", "2"], ["3", "4"]],
             b: [["5", "6"], ["7", "8"]],
             result: [["6", "8"], ["10", "12"]],
@@ -25,10 +25,10 @@ describe("Matrix tasks", function () {
         var level = 0,
             operation = "s",
             randomValues = [5, 2, 7, 9, 1, 6, 0, 8],
-            g = new TestIntegerGenerator(randomValues),
-            a = new MatrixTaskGenerator(g);
+            i = new TestIntegerGenerator(randomValues),
+            g = new MatrixTaskGenerator(i);
 
-        assert.deepEqual(a.next(operation, level), {
+        assert.deepEqual(g.next(operation, level), {
             a: [["5", "2"], ["7", "9"]],
             b: [["1", "6"], ["0", "8"]],
             result: [["4", "-4"], ["7", "1"]],

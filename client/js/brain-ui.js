@@ -77,7 +77,7 @@ BrainUI.prototype.updateTasks = function (tasks) {
         }
 
         var element = tasks[task];
-        content += "<option value=\"" + task + "\">" + element.name + "</option>";
+        content += `<option value="${task}">${element.name}</option>`;
     }
 
     $("#taskType").html(content);

@@ -3,8 +3,8 @@ var assert = require("assert"),
 
 describe("Data generators: DataGeneratorProvider", function () {
     it("Initialize provider without parameters", function () {
-        var g = new DataGeneratorProvider();
+        var p = new DataGeneratorProvider();
 
-        assert.ok(g.getAllGenerators().integerGenerator != undefined);
+        assert.ok(p.getAllGenerators().integerGenerator != undefined);
     });
 });
