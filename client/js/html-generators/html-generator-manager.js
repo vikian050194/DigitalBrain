@@ -10,9 +10,9 @@ function HtmlGeneratorManager(htmlGenerators) {
             var generator = htmlGenerators[task.type];
             return generator.renderTask(task);
         },
-        renderTaskWithCorrectAnswer: function (task) {
+        renderTaskWithCorrectAnswer: function (task, isCorrectAnswer, answer) {
             var generator = htmlGenerators[task.type];
-            return generator.renderTaskWithCorrectAnswer(task);
+            return generator.renderTaskWithCorrectAnswer(task, isCorrectAnswer, answer);
         }
     }
 }

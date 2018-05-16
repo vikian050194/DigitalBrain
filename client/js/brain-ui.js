@@ -159,16 +159,13 @@ function updateProgress(index, count) {
 
 BrainUI.prototype.updateProgress = updateProgress;
 
-var correct = `<span class="glyphicon glyphicon-ok inline-task" aria-hidden="true" style="color:green;"></span>`;
-var wrong = `<span class="glyphicon glyphicon-remove inline-task" aria-hidden="true" style="color:red;"></span>`;
-
-BrainUI.prototype.updateHistory = function (isCorrectAnswer, task) {
+BrainUI.prototype.updateHistory = function (isCorrectAnswer, answer, task) {
     var content = $("#history").html();
 
     if (isCorrectAnswer) {
-        content = `<div class="alert alert-success">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
+        content = `<div class="alert alert-success">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task, true)}</div>${content}`;
     } else {
-        content = `<div class="alert alert-danger">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task)}</div>${content}`;
+        content = `<div class="alert alert-danger">${htmlGeneratorManager.renderTaskWithCorrectAnswer(task, false, answer)}</div>${content}`;
     }
 
     $("#history").html(content);

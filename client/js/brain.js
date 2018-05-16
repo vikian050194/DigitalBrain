@@ -107,7 +107,7 @@ function brain() {
         state.score = state.score + (isCorrect ? 1 : 0);
         brainUI.updateScore(state.score, state.settings.count);
         brainUI.updateProgress(state.index, state.settings.count);
-        brainUI.updateHistory(isCorrect, state.tasks[state.index - 1]);
+        brainUI.updateHistory(isCorrect, state.answers[state.index - 1], state.tasks[state.index - 1]);
         updateTask();
     });
 
