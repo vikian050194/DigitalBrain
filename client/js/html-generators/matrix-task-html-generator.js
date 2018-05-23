@@ -30,9 +30,9 @@ function MatrixTaskHtmlGenerator() {
         },
         renderTaskWithCorrectAnswer: function (task, isCorrectAnswer, answer) {
             if (isCorrectAnswer) {
-                return `<div class="history-conteiner" style="margin-bottom:15px;">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}</div>`;
+                return `<div class="history-conteiner">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}</div>`;
             } else {
-                return `<div class="history-conteiner" style="margin-bottom:15px;">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}<span class=\"operation\">&ne;</span>${renderMatrix(answer)}</div>`;
+                return `<div class="history-conteiner">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}<span class=\"operation\">&ne;</span>${renderMatrix(answer)}</div>`;
             }
         }
     }
