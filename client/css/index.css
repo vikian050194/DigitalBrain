@@ -25,9 +25,9 @@ table td input {
     border-radius: 4px;
 }
 
-.task-conteiner,
-.answer-conteiner,
-.history-conteiner {
+.task-container,
+.answer-container,
+.history-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,24 +53,24 @@ table td input {
     word-wrap:break-word;
 }
 
-.score-conteiner {
+.score-container {
     float: right;
 }
 
-.progress-conteiner {
+.progress-container {
     float: left;
 }
 
 @media (orientation:landscape) {
-    .task-conteiner,
-    .history-conteiner {
+    .task-container,
+    .history-container {
         flex-direction: row;
     }
 }
 
 @media (orientation:portrait) {
-    .task-conteiner,
-    .history-conteiner {
+    .task-container,
+    .history-container {
         flex-direction: column;
     }
 }

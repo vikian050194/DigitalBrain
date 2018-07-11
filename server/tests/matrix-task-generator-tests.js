@@ -1,5 +1,5 @@
 var assert = require("assert"),
-    MatrixTaskGenerator = require("../task-generators/matrix-task-generator"),
+    MatrixTaskGenerator = require("../task-generators/matrix/generator"),
     TestIntegerGenerator = require("./fakes/test-integer-generator");
 
 const type = "matrix";

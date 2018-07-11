@@ -14,10 +14,13 @@ if (process.env.NODE_ENV === 'production') {
         });
 }
 
-router.route('/task')
+router.route('/menu')
     .get(function (req, res) {
+        console.log(`GET "menu" at ${(new Date).toTimeString()}`)
         res.send(taskGeneratorManager.getFullInfo());
-    })
+    });
+
+router.route('/task')
     .post(function (req, res) {
         var taskType = req.body.taskType,
             operations = req.body.operations,
@@ -28,7 +31,7 @@ router.route('/task')
         res.send(tasks);
     });
 
-    router.route('/task/:id/description')
+router.route('/task/:id/description')
     .get(function (req, res) {
         res.send(taskGeneratorManager.getFullInfo(req.params.id).description);
     });

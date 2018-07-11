@@ -1,26 +1,34 @@
 var TaskGeneratorProvider = require("./task-generator-provider"),
-    DataGeneratorProvide = require("./../data-generators/data-generator-provider");
+    DataGeneratorProvide = require("./../data-generators/data-generator-provider"),
+    Levels = require("./../enums/levels"),
+    Sizes = require("./../enums/sizes");
 
 function TaskGeneratorManager(dataGenerators, taskGenerators) {
     if (dataGenerators == undefined) {
         dataGenerators = (new DataGeneratorProvide()).getAllGenerators();
     }
-    
+
     if (taskGenerators == undefined) {
         taskGenerators = (new TaskGeneratorProvider()).getAllGenerators();
     }
 
-    var fullInfo = {},
+    var fullInfo = {
+        tasks: [],
+        levels: Levels,
+        sizes: Sizes
+    },
         integerGenerator = dataGenerators.integerGenerator,
         tasks = Object.getOwnPropertyNames(taskGenerators);
 
     for (var i in tasks) {
         var task = tasks[i];
-        fullInfo[task] = {
+
+        fullInfo.tasks.push({
+            id: task,
             name: taskGenerators[task].name,
             description: taskGenerators[task].description,
             operations: taskGenerators[task].operations
-        };
+        });
     }
 
     return {
@@ -46,12 +54,8 @@ function TaskGeneratorManager(dataGenerators, taskGenerators) {
 
             return tasks;
         },
-        getFullInfo: function (id) {
-            if (id == undefined) {
-                return fullInfo;
-            } else {
-                return fullInfo[id];
-            }
+        getFullInfo: function () {
+            return fullInfo;
         }
     }
 }

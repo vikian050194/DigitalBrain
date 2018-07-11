@@ -1,5 +1,5 @@
 var assert = require("assert"),
-    ArithmeticTaskGenerator = require("../task-generators/arithmetic-task-generator"),
+    ArithmeticTaskGenerator = require("../task-generators/arithmetic/generator"),
     TestIntegerGenerator = require("./fakes/test-integer-generator");
 
 const type = "arithmetic";

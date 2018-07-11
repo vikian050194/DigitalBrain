@@ -1,5 +1,7 @@
-var Brain = require('./brain');
+import App from "./app";
 
 $(document).ready(function () {
-    new Brain();
+    var app = new App({el: document.body});
+    app.render();
+    app.start();
 });
