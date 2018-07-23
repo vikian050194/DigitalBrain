@@ -1,17 +1,17 @@
-var ArithmeticTaskHtmlGenerator = require("./arithmetic-task-html-generator"),
-    MatrixTaskHtmlGenerator = require("./matrix-task-html-generator");
+import ArithmeticTaskHtmlGenerator from "./arithmetic-task-html-generator";
+import MatrixTaskHtmlGenerator from "./matrix-task-html-generator";
 
-function HtmlGeneratorProvider() {
-    var generators = {
-        arithmetic: ArithmeticTaskHtmlGenerator(),
-        matrix: MatrixTaskHtmlGenerator()
-    };
+class HtmlGeneratorProvider {
+    constructor() {
+        this.generators = {
+            arithmetic: ArithmeticTaskHtmlGenerator(),
+            matrix: MatrixTaskHtmlGenerator()
+        };
+    }
 
-    return {
-        getAllGenerators: function () {
-            return generators
-        }
-    };
+    getAllGenerators() {
+        return generators;
+    }
 }
 
 module.exports = HtmlGeneratorProvider;

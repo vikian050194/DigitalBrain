@@ -3,8 +3,15 @@ import Router from "./routers/router";
 
 var App = Backbone.View.extend({
     initialize: function () {
-        this.router = new Router({ container: $(".current") });
+        this.router = new Router({
+            container: $(".current")
+        });
+
+        Backbone.on("start", function (settings) {
+            Backbone.history.navigate("game");
+        });
     },
+
     render: function () {
         var loader = new Loader();
         this.$el.append(loader.render().el);
@@ -12,6 +19,7 @@ var App = Backbone.View.extend({
 
         return this;
     },
+
     start: function () {
         Backbone.history.start({ pushState: true });
 

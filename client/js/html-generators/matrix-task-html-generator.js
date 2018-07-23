@@ -1,11 +1,16 @@
-function MatrixTaskHtmlGenerator() {
-    var operations = {
-        a: "+",
-        s: "-",
-        m: "*"
-    };
+import BaseTaskHtmlGenerator from "./base-task-html-generator";
 
-    function renderMatrix(matrix) {
+class MatrixTaskHtmlGenerator extends BaseTaskHtmlGenerator {
+    constructor() {
+        super();
+
+        this.operations = {
+            a: "+",
+            s: "-"
+        };
+    }
+
+    renderMatrix(matrix) {
         let result = "<span class=\"argument\"><table class=\"\"><tbody>";
 
         for (let i = 0; i < matrix.length; i++) {
@@ -24,18 +29,17 @@ function MatrixTaskHtmlGenerator() {
         return result;
     }
 
-    return {
-        renderTask: function (task) {
-            return `${renderMatrix(task.a)} <span class=\"operation\"> ${operations[task.operation]}</span> ${renderMatrix(task.b)}`;
-        },
-        renderTaskWithCorrectAnswer: function (task, isCorrectAnswer, answer) {
-            if (isCorrectAnswer) {
-                return `<div class="history-container">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}</div>`;
-            } else {
-                return `<div class="history-container">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}<span class=\"operation\">&ne;</span>${renderMatrix(answer)}</div>`;
-            }
+    renderTask(task) {
+        return `${renderMatrix(task.a)} <span class=\"operation\"> ${operations[task.operation]}</span> ${renderMatrix(task.b)}`;
+    }
+
+    renderTaskWithCorrectAnswer(task, isCorrectAnswer, answer) {
+        if (isCorrectAnswer) {
+            return `<div class="history-container">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}</div>`;
+        } else {
+            return `<div class="history-container">${renderMatrix(task.a)}<span class=\"operation\">${operations[task.operation]}</span>${renderMatrix(task.b)}<span class=\"operation\">=</span>${renderMatrix(task.result)}<span class=\"operation\">&ne;</span>${renderMatrix(answer)}</div>`;
         }
     }
 }
 
-module.exports = MatrixTaskHtmlGenerator;
+export default MatrixTaskHtmlGenerator;

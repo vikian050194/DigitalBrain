@@ -1,5 +1,5 @@
-// import { HtmlGeneratorManager } from "./html-generators/html-generator-manager";
-// import { InputGeneratorManager } from "./input-generators/input-generator-manager";
+// import HtmlGeneratorManager from "./html-generators/html-generator-manager";
+// import InputGeneratorManager from "./input-generators/input-generator-manager";
 
 // var htmlGeneratorManager = new HtmlGeneratorManager(),
 //     inputGeneratorManager = new InputGeneratorManager(),
@@ -9,9 +9,11 @@ var GameView = Backbone.View.extend({
     id: "game",
     tagName: "div",
     className: "container",
+
     initialize: function () {
 
     },
+    
     render: function () {
         const html = `<h1>Game</h1>`;
 

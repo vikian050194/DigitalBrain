@@ -14,13 +14,12 @@ if (process.env.NODE_ENV === 'production') {
         });
 }
 
-router.route('/menu')
+router.route('/api/menu')
     .get(function (req, res) {
-        console.log(`GET "menu" at ${(new Date).toTimeString()}`)
         res.send(taskGeneratorManager.getFullInfo());
     });
 
-router.route('/task')
+router.route('/api/game')
     .post(function (req, res) {
         var taskType = req.body.taskType,
             operations = req.body.operations,
@@ -28,12 +27,8 @@ router.route('/task')
             count = parseInt(req.body.count),
             settings = Settings(taskType, operations, level, count),
             tasks = taskGeneratorManager.getTasks(settings);
+            
         res.send(tasks);
-    });
-
-router.route('/task/:id/description')
-    .get(function (req, res) {
-        res.send(taskGeneratorManager.getFullInfo(req.params.id).description);
     });
 
 module.exports = router;

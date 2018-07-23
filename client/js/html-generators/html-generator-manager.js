@@ -1,20 +1,22 @@
-var HtmlGeneratorProvider = require("./html-generator-provider");
+import HtmlGeneratorProvider from "./html-generator-provider";
 
-function HtmlGeneratorManager(htmlGenerators) {
-    if (htmlGenerators == undefined) {
-        htmlGenerators = (new HtmlGeneratorProvider()).getAllGenerators();
+class HtmlGeneratorManager {
+    constructor(htmlGenerators) {
+        if (htmlGenerators == undefined) {
+            this.htmlGenerators = (new HtmlGeneratorProvider()).getAllGenerators();
+        }
+        else {
+            this.htmlGenerators = htmlGenerators;
+        }
     }
 
-    return {
-        renderTask: function (task) {
-            var generator = htmlGenerators[task.type];
-            return generator.renderTask(task);
-        },
-        renderTaskWithCorrectAnswer: function (task, isCorrectAnswer, answer) {
-            var generator = htmlGenerators[task.type];
-            return generator.renderTaskWithCorrectAnswer(task, isCorrectAnswer, answer);
-        }
+    renderTask(task) {
+        return this.htmlGenerators[task.type].renderTask(task);
+    }
+
+    renderTaskWithCorrectAnswer(task, isCorrectAnswer, answer) {
+        return htmlGenerators[task.type].renderTaskWithCorrectAnswer(task, isCorrectAnswer, answer);
     }
 }
 
-module.exports = HtmlGeneratorManager;
+export default HtmlGeneratorManager;
