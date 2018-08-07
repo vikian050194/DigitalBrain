@@ -88,7 +88,7 @@ var Menu = Backbone.View.extend({
     },
 
     render: function () {
-        let type = this.model.get("taskType"),
+        let type = this.model.selectedSettings.taskType,
             task = this.getTaskByType(type),
             html = `
 <div class="row">
@@ -132,7 +132,7 @@ var Menu = Backbone.View.extend({
     },
 
     start: function () {
-        Backbone.trigger("start", this.model.getSettings());
+        Backbone.trigger("start", this.model.selectedSettings);
     },
 
     onTaskTypeChanged: function () {

@@ -25,7 +25,8 @@ var Router = Backbone.Router.extend({
         });
     },
 
-    game: function () {
+    game: function (foo) {
+        debugger;
         let gameModel = new GameModel(this.settings);
         gameModel.fetch({
             success: () => {

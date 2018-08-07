@@ -10,7 +10,7 @@ var taskGeneratorManager = new TaskGeneratorManager();
 if (process.env.NODE_ENV === 'production') {
     router.route('/')
         .get(function (req, res) {
-            res.sendFile(path.resolve(__dirname + '/../client/index.html'));
+            res.sendFile(path.resolve(__dirname + '/../client/Index.html'));
         });
 }
 

@@ -8,7 +8,7 @@ var App = Backbone.View.extend({
         });
 
         Backbone.on("start", function (settings) {
-            Backbone.history.navigate("game");
+            Backbone.history.navigate("game", {trigger: true});
         });
     },
 

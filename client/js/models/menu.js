@@ -1,7 +1,7 @@
 var Menu = Backbone.Model.extend({
     url: "/api/menu",
 
-    defaults: {
+    selectedSettings: {
         "taskType": "arithmetic",
         "size": 1,
         "level": 0,
@@ -9,19 +9,19 @@ var Menu = Backbone.Model.extend({
     },
 
     setTaskType(type) {
-        this.set("taskType", type);
+        this.selectedSettings.taskType = type;
     },
 
     setLevel(level) {
-        this.set("level", level);
+        this.selectedSettings.level = level;
     },
 
     setSize(size) {
-        this.set("size", size);
+        this.selectedSettings.size = size;
     },
 
     setOperation(operation) {
-        const currentOpertations = this.get("operations"),
+        const currentOpertations = this.selectedSettings.operations,
             indexOfOperation = currentOpertations.indexOf(operation),
             isOperationNew = indexOfOperation == -1;
         if (isOperationNew) {
@@ -30,7 +30,7 @@ var Menu = Backbone.Model.extend({
             currentOpertations.splice(indexOfOperation, 1);
         }
 
-        this.set("operations", currentOpertations);
+        this.selectedSettings.operations = currentOpertations;
     }
 });
 
