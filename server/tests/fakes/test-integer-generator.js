@@ -3,7 +3,7 @@ function TestIntegerGenerator(values) {
     var index = 0;
 
     return {
-        next: function (min, max) {
+        next: function () {
             if (values === undefined || values.length === 0 || values.length < index) {
                 return undefined;
             }
