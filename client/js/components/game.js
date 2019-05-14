@@ -1,8 +1,8 @@
-var Game = Backbone.Model.extend({
-    url: "/api/game",
-});
+// var Game = Backbone.Model.extend({
+//     url: "/api/game",
+// });
 
-export default Game;
+// export default Game;
 
 // import { Backbone } from "backbone";
 // import { AnswerConverter } from "./input-generators/answer-converter";

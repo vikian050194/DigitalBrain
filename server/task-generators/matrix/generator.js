@@ -2,7 +2,6 @@ var BaseTaskGenerator = require("./../base-task-generator"),
     Operations = require("./operations"),
     Settings = require("./settings");
 
-
 class MatrixTaskGenerator extends BaseTaskGenerator {
     constructor(integerGenerator) {
         super(integerGenerator);

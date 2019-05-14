@@ -4,12 +4,12 @@ body {
 
 html,
 body {
-   min-width: 300px;
-   width: 100%;
+    min-width: 300px;
+    width: 100%;
 }
 
 #navbar {
-    background-color: rgba(255,255,255,0.9);
+    background-color: rgba(255, 255, 255, 0.9);
     background-image: none;
 }
 
@@ -50,7 +50,7 @@ table td input {
 }
 
 #description {
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
 .score-container {
@@ -62,6 +62,7 @@ table td input {
 }
 
 @media (orientation:landscape) {
+
     .task-container,
     .history-container {
         flex-direction: row;
@@ -69,8 +70,13 @@ table td input {
 }
 
 @media (orientation:portrait) {
+
     .task-container,
     .history-container {
         flex-direction: column;
     }
+}
+
+.active {
+    font-weight: bold;
 }

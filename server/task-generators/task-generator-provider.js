@@ -1,5 +1,5 @@
-var ArithmeticTaskGenerator = require('./arithmetic/generator'),
-    MatrixTaskGenerator = require('./matrix/generator'),
+var ArithmeticTaskGenerator = require("./arithmetic/generator"),
+    MatrixTaskGenerator = require("./matrix/generator"),
     DataGeneratorProvider = require("./../data-generators/data-generator-provider");
 
 function TaskGeneratorProvider(dataGenerators) {
@@ -16,7 +16,7 @@ function TaskGeneratorProvider(dataGenerators) {
 
     return {
         getAllGenerators: function () {
-            return generators
+            return generators;
         }
     };
 }

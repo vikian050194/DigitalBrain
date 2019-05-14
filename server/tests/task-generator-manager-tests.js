@@ -18,17 +18,17 @@ describe("Task generators: TaskGeneratorManager", function () {
 
     it("Get tasks generators types", function () {
         var taskGenerators = {
-            g1: {
-                name: "n1",
-                description: "d1",
-                operations: ["op1"]
+                g1: {
+                    name: "n1",
+                    description: "d1",
+                    operations: ["op1"]
+                },
+                g2: {
+                    name: "n2",
+                    description: "d2",
+                    operations: ["op2"]
+                }
             },
-            g2: {
-                name: "n2",
-                description: "d2",
-                operations: ["op2"]
-            }
-        },
             dataGenerators = { integerGenerator: {} },
             taskGeneratorManager = new TaskGeneratorManager(dataGenerators, taskGenerators),
             data = taskGeneratorManager.getFullInfo();

@@ -1,49 +1,61 @@
-var webpack = require("webpack"),
-    ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require("path"),
+    MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    entry: ["./client/js/index.js", "bootstrap-loader/extractStyles", "./client/js/index.css.js"],
+    entry: ["@babel/polyfill", "./client/js/index.jsx", "bootstrap-loader/extractStyles", "./client/build.js"],
     devtool: "inline-source-map",
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
                 use: {
                     loader: "babel-loader",
                     options: {
-                        presets: ["babel-preset-env"]
+                        presets: ["@babel/preset-env", "@babel/preset-react"]
                     }
+                },
+                resolve: {
+                    extensions: [".js", ".jsx"]
                 }
             },
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader"
+                ]
             },
             {
-                test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=1024&name=/fonts/[name].[ext]"
+                test: /\.(jpg|jpeg|gif|png|ico)$/,
+                loader: "url-loader",
+                options: {
+                    limit: 1024,
+                    name: "[name].[ext]",
+                    outputPath: "/",
+                    publicPath: "/"
+                }
             },
             {
-                test: /\.(jpg|jpeg|gif|png)$/,
-                exclude: /node_modules/,
-                loader: "url-loader?limit=1024&name=/images/[name].[ext]"
+                test: /\.(html)$/,
+                loader: "url-loader",
+                options: {
+                    limit: 1024,
+                    name: "[name].[ext]",
+                    outputPath: "/",
+                    publicPath: "/"
+                }
             }
         ]
     },
     output: {
-        filename: "./build/bundle.js",
-        path: __dirname + "/client"
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "client", "build")
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            "$": "jquery",
-            "jQuery": "jquery",
-            "Backbone": "backbone"
-        }),
-        new ExtractTextPlugin("./build/bundle.css")
-    ]
+        new MiniCssExtractPlugin({
+            filename: "bundle.css"
+        })
+    ],
+    mode: "development"
 };

@@ -1,12 +1,13 @@
 # DigitalBrain
 
 Развёрнуто на Azure:
-* [master](http://digitalbrain.azurewebsites.net/)
-* [dev](http://digitalbrain-dev.azurewebsites.net/)
+
+- [http](http://digitalbrain.kirillv.ru/)
+- [https](https://digitalbrain.azurewebsites.net/)
 
 TODO
 
-- [ ] прототип
+- [x] прототип
 - [ ] создание "комнаты"
 - [ ] настройка "комнаты"
 - [ ] настройка режима игры

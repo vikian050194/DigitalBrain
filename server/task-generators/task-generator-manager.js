@@ -13,10 +13,10 @@ function TaskGeneratorManager(dataGenerators, taskGenerators) {
     }
 
     var fullInfo = {
-        tasks: [],
-        levels: Levels,
-        sizes: Sizes
-    },
+            tasks: [],
+            levels: Levels,
+            sizes: Sizes
+        },
         integerGenerator = dataGenerators.integerGenerator,
         tasks = Object.getOwnPropertyNames(taskGenerators);
 
@@ -57,7 +57,7 @@ function TaskGeneratorManager(dataGenerators, taskGenerators) {
         getFullInfo: function () {
             return fullInfo;
         }
-    }
+    };
 }
 
 module.exports = TaskGeneratorManager;

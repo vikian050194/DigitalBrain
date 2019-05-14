@@ -1,10 +1,10 @@
 const Sizes = [
-    { key: "XS", value: 1 },
-    { key: "S", value: 5 },
-    { key: "M", value: 10 },
-    { key: "L", value: 15 },
-    { key: "XL", value: 20 },
-    { key: "XXL", value: 50 }
-]
+    { id: 0, name: "1" },
+    { id: 1, name: "5" },
+    { id: 2, name: "10" },
+    { id: 3, name: "15" },
+    { id: 4, name: "20" },
+    { id: 5, name: "50" }
+];
 
 module.exports = Sizes;

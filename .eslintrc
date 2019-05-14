@@ -14,26 +14,22 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "mocha": true
     },
     "rules": {
-        "indent": ["error", 4, {
-            "SwitchCase": 1
-        }],
-        "linebreak-style": ["error", "windows"],
-        "quotes": ["error", "double"],
-        "semi": ["error", "always"],
-        "no-console": ["warn", {
-            "allow": ["info", "error"]
-        }],
-        "no-multiple-empty-lines": ["error", {
-            "max": 1
-        }]
+        "quotes": [ "error", "double" ],
+        "semi": [ "error", "always" ],
+        "indent": [ "error", 4, { "SwitchCase": 1 } ],
+        "no-multiple-empty-lines": [ "error", { "max": 1 } ],
+        "linebreak-style": [ "error", "windows"],
+        "no-console": [ "warn", { "allow": [ "info", "error" ] } ],
+        "comma-dangle": ["error", "never"]
     },
     "settings": {
         "react": {
             "pragma": "React",
-            "version": "15.0"
+            "version": "16.8"
         }
     }
 }

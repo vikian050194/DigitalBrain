@@ -32,10 +32,10 @@ class ArithmeticTaskGenerator extends BaseTaskGenerator {
                     result = a + b;
                     break;
                 case "s":
-                    var result = a - b;
+                    result = a - b;
                     break;
                 case "m":
-                    var result = a * b;
+                    result = a * b;
                     break;
             }
         } while (result == a || result == b);

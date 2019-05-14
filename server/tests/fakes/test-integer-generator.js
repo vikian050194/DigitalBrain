@@ -1,6 +1,5 @@
 function TestIntegerGenerator(values) {
-    var values = values;
-    var index = 0;
+    let index = 0;
 
     return {
         next: function () {
