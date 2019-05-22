@@ -1,4 +1,4 @@
-import Logger from "./LogWrapper";
-import Loader from "./LoaderWrapper";
+import logger from "./LogWrapper";
+import loader from "./LoaderWrapper";
 
-export default (WrappedComponent) => Logger(Loader(WrappedComponent));
+export default (WrappedComponent) => logger(loader(WrappedComponent));

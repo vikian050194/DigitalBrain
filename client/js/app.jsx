@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/common/Header";
 
-import Home from "./components/Home";
-import About from "./components/About";
+import Home from "./components/HomePage";
+import About from "./components/AboutPage";
 import PageNotFound from "./components/PageNotFound";
 
-import Menu from "./components/menu/MenuWrapper";
+import Menu from "./components/menu/MenuPage";
 
 class App extends React.Component {
     render() {
@@ -16,14 +16,12 @@ class App extends React.Component {
         return (
             <Router>
                 <Header />
-                <div className="container">
-                    <Switch>
-                        <Route path="/" exact component={Home} />
-                        <Route path="/menu" exact component={Menu} />
-                        <Route path="/about" exact component={About} />
-                        <Route component={PageNotFound} />
-                    </Switch>
-                </div>
+                <Switch>
+                    <Route path="/" exact component={Home} />
+                    <Route path="/menu" exact component={Menu} />
+                    <Route path="/about" exact component={About} />
+                    <Route component={PageNotFound} />
+                </Switch>
             </Router >);
     }
 }

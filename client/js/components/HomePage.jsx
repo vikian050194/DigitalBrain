@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => <div className="jumbotron">
+const HomePage = () => <div className="jumbotron">
     <div className="container">
         <h1>Digital Brain</h1>
         <p>Short description should be here</p>
@@ -9,4 +9,4 @@ const Home = () => <div className="jumbotron">
     </div>
 </div>;
 
-export default Home;
+export default HomePage;

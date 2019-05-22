@@ -1,14 +1,14 @@
 import React from "react";
 
-import Loader from "../common/Loader";
+import Loader from "../common/loader";
 
-export default (WrappedComponent) => {
-    return class WrappedComponentWithLoader extends React.Component {
-        render() {
-            if (this.props.isLoading)
-                return <Loader />;
-            else
-                return <WrappedComponent {...this.props} />;
-        }
+const LoaderWrapper = (WrappedComponent) => {
+    return (props) => {
+        if (props.isLoading)
+            return <Loader />;
+        else
+            return <div className="container"><WrappedComponent {...props} /></div>;
     };
 };
+
+export default LoaderWrapper;

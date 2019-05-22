@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
-import App from "./app";
+import App from "./App";
 
-document.addEventListener("DOMContentLoaded", function() { 
-    ReactDOM.render(<App />, document.getElementById("root"));
+import configureStore from "./redux/configureStore";
+
+const store = configureStore();
+
+document.addEventListener("DOMContentLoaded", function () {
+    ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById("root"));
 });

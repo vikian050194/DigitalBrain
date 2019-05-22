@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "start":"run-p server:dev client:dev",
     "client:dev": "webpack -w",
     "client:build": "webpack",
     "client:release": "webpack --config webpack.production.config.js",
     "server": "node server/app.js",
+    "preserver": "npm run client:build",
     "server:dev": "node-dev server/app.js"
   },
   "engines": {
@@ -39,7 +41,11 @@
     "random-int": "^2.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
+    "redux-immutable-state-invariant": "^2.1.0",
+    "redux-thunk": "^2.3.0",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",
     "terser-webpack-plugin": "^1.2.3",
