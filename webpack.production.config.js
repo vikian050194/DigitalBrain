@@ -3,6 +3,8 @@ const common = require("./webpack.config.js");
 const webpack = require("webpack");
 const TerserPlugin = require("terser-webpack-plugin");
 
+process.env.NODE_ENV = "production";
+
 module.exports = merge(common, {
     mode: "production",
     optimization: {

@@ -1,13 +1,22 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import rootReducer from "./reducers";
-
+import createSagaMiddleware from "redux-saga";
 import reduxImmutableStateInveriant from "redux-immutable-state-invariant";
+
+import rootReducer from "./reducers";
+import initializeSagas from "./initializeSagas";
+
+const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState) {
     const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    return createStore(
+
+    const store = createStore(
         rootReducer,
         initialState,
-        composeEnhancers(applyMiddleware(reduxImmutableStateInveriant(), thunk)));
+        composeEnhancers(applyMiddleware(reduxImmutableStateInveriant(), thunk, sagaMiddleware)));
+
+    initializeSagas(sagaMiddleware);
+
+    return store;
 }

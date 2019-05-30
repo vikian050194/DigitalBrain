@@ -15,7 +15,9 @@ if (process.env.NODE_ENV === "production") {
 
 router.route("/api/menu")
     .get(function (req, res) {
-        res.send(taskGeneratorManager.getFullInfo());
+        setTimeout(function(){
+            res.send(taskGeneratorManager.getFullInfo());
+        }, 1000);
     });
 
 router.route("/api/game")

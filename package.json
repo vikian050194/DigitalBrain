@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start":"run-p server:dev client:dev",
+    "start": "run-p server:dev client:dev",
     "client:dev": "webpack -w",
     "client:build": "webpack",
     "client:release": "webpack --config webpack.production.config.js",
@@ -45,6 +45,7 @@
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-immutable-state-invariant": "^2.1.0",
+    "redux-saga": "^1.0.2",
     "redux-thunk": "^2.3.0",
     "resolve-url-loader": "^3.1.0",
     "sass-loader": "^7.1.0",

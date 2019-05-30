@@ -3,16 +3,17 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import Menu from "./Menu";
-import loadMenuData from "../../redux/actions/loadMenuData";
+import actionCreator from "../../redux/actions/actionCreator";
+import * as types from "../../redux/actions/actionTypes";
 
 const MenuPage = ({ loadMenuData, settings, isLoading }) => {
     useEffect(() => {
         loadMenuData();
     }, []);
 
-    var props = {...settings, isLoading: isLoading};
+    var props = { ...settings, isLoading: isLoading };
 
-    return <Menu  {...props}/>;
+    return <Menu  {...props} />;
 };
 
 MenuPage.propTypes = {
@@ -30,7 +31,7 @@ const mapStateToProps = ({ menu: state }) => {
 
 const mapActionsToProps = (dispatch) => {
     return {
-        loadMenuData: () => dispatch(loadMenuData())
+        loadMenuData: () => dispatch(actionCreator(types.MENU_LOADING)())
     };
 };
 

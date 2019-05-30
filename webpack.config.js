@@ -1,7 +1,11 @@
-const path = require("path"),
-    MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
+const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+process.env.NODE_ENV = "development";
 
 module.exports = {
+    mode: "development",
     entry: ["@babel/polyfill", "./client/js/index.jsx", "bootstrap-loader/extractStyles", "./client/build.js"],
     devtool: "inline-source-map",
     module: {
@@ -55,7 +59,10 @@ module.exports = {
     plugins: [
         new MiniCssExtractPlugin({
             filename: "bundle.css"
+        }),
+        new webpack.EnvironmentPlugin({
+            NODE_ENV: "development",
+            DEBUG: true
         })
-    ],
-    mode: "development"
+    ]
 };
