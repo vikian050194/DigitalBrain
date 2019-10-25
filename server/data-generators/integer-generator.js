@@ -1,4 +1,4 @@
-var randomInt = require("random-int");
+const randomInt = require("random-int");
 
 class IntegerGenerator {
     next(min, max) {
