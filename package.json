@@ -10,7 +10,7 @@
     "test": "mocha --recursive ./server/tests"
   },
   "engines": {
-    "node": "^8.9.4"
+    "node": "^12.16.3"
   },
   "dependencies": {
     "express": "^4.16.2",
